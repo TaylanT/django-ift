@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+
+
+{% block content %}
+{{ request.user.username }}
+ {% if user.is_authenticated %}
+	<h1>You are logged in!</h1>
+	
+
+	<form method='POST' action=''>{% csrf_token %}
+{{ form|crispy }}
+
+<input class='btn btn-default' type='submit' value='Submit' />
+
+</form>
+
+
+	
+
+
+{% endif %}
+
+
+
+{% endblock %}
+

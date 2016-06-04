@@ -1,0 +1,95 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+
+ 
+
+ <!-- ... -->
+  <script type="text/javascript" src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+<script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="/static/bower_components/moment/moment-with-locale.js"></script>
+<script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+</head>
+<body>
+
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Datenbank</h1>
+    <p>Resize this responsive page to see the effect!</p> 
+  </div>
+  <!-- <div class="row">
+    <div class="col-sm-4">
+      <h3>Column 1</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 2</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+    <div class="col-sm-4">
+      <h3>Column 3</h3>        
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+  </div> -->
+</div>
+
+<div class="container">
+
+            
+
+          <div class='row'>
+
+            <div class='col-sm-6 col-sm-offset-3'>
+              {% block content %}
+
+              {% endblock %}
+              </div>
+              </div>
+              
+
+    </div> <!-- /container -->
+     
+
+
+
+        
+<script type="text/javascript">
+    $(function () {
+        $('#id_start').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'MM/DD/YY HH:mm'
+    });
+        $('#id_ende').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'MM/DD/YY HH:mm',
+                                              
+                                              
+
+    });
+    });
+
+</script>
+
+
+
+   
+
+    
+
+</body>
+</html>
