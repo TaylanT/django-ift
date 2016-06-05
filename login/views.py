@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from .models import SignUp, ZeitErfassung
 from .forms import SignUpForm, ZeitForm
+from datetime import datetime
 
 # Create your views here.
 
@@ -52,7 +53,8 @@ def home(request):
 
 def danke(request):
 	#zt=ZeitErfassung.objects.all()
-	zt=ZeitErfassung.objects.filter(user__username=request.user)
+	current_month=datetime.now().month
+	zt=ZeitErfassung.objects.filter(user__username=request.user).order_by('start')
 
 	return render(request,'secondpage.html',{'zt':zt})
    
