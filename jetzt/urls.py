@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', 'login.views.home',name="home"),
     url(r'^stundenkonto/$', 'stundenkonto.views.ubersicht',name="stundenkonto"),
+    url(r'^status/$', 'stundenkonto.views.status',name="status"),
 
 
 ]

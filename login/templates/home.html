@@ -3,14 +3,10 @@
 
 
 
-
-
-
-
-
 {% block content %}
-<h1> Hallo {{ request.user.username }}, du bist eingeloggt!</h1>
+
  {% if user.is_authenticated %}
+ <h1> Hallo {{ request.user.username }}, du bist eingeloggt!</h1>
 	
 	
 

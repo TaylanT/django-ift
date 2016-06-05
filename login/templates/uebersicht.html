@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+
+
+
+{% block content %}
+
+{% for eintrag in zt %}
+<ul class="list-inline">
+<li>{{ eintrag.beschreibung }}</li>
+<li>{{ eintrag.start|date:"d.m.Y H:i"}}</li>
+
+</ul>
+
+{% endfor %}
+
+{% endblock %}
