@@ -20,6 +20,11 @@ class SignUp(models.Model):
 		return self.email
 	
 
+class Betreuer(models.Model):
+	vorname=models.CharField(max_length=120,null=True)
+	nachname=models.CharField(max_length=120,null=True)
+	def __str__(self): #Python 3.3 is __str__
+		return self.nachname
 
 
 class ZeitErfassung(models.Model):
@@ -27,6 +32,7 @@ class ZeitErfassung(models.Model):
 	start=models.DateTimeField()
 	ende=models.DateTimeField()
 	user = models.ForeignKey(User, null=True)
+	betreuer = models.ForeignKey(Betreuer, null=True)
 	dt=models.DurationField(null=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
 
@@ -38,6 +44,3 @@ class ZeitErfassung(models.Model):
 
 	def timecalc(self):
 		return ende - start
-
-class Betreuer(models.Model):
-	nachname=models.CharField(max_length=120)
