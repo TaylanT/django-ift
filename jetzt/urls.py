@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$','login.views.login',name='login'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^$', 'login.views.home'),
+    url(r'^$', 'login.views.home',name="home"),
 
 
 ]

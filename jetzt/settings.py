@@ -60,7 +60,7 @@ ROOT_URLCONF = 'jetzt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['home/taylan/jetzt/'],
+        'DIRS': [BASE_DIR],
         'APP_DIRS': True,
 
         'OPTIONS': {
