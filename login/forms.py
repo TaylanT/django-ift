@@ -1,14 +1,10 @@
 from django import forms
 
-from .models import SignUp, ZeitErfassung
+from .models import ZeitErfassung, Betreuer
 
-class SignUpForm(forms.ModelForm):
-	class Meta:
-		model = SignUp
-		fields = ['full_name', 'email']
 
 class ZeitForm(forms.ModelForm):
 	class Meta:
 		model = ZeitErfassung
-		fields = ['beschreibung', 'start','ende']
+		fields = ['beschreibung', 'start','ende','betreuer']
 		#exclude = ('user')
