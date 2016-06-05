@@ -9,9 +9,9 @@
 
 
 {% block content %}
-{{ request.user.username }}
+<h1> Hallo {{ request.user.username }}, du bist eingeloggt!</h1>
  {% if user.is_authenticated %}
-	<h1>You are logged in!</h1>
+	
 	
 
 	<form method='POST' action=''>{% csrf_token %}

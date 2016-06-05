@@ -50,6 +50,9 @@ def home(request):
 
 	return render(request, 'home.html', {'form': form})
 
+def danke(request):
+
+	return render(request,'secondpage.html')
    
 
     

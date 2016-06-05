@@ -21,6 +21,7 @@ urlpatterns = [
     # url(r'^login/$','login.views.login',name='login'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', 'login.views.home',name="home"),
+    url(r'^thanks/$', 'login.views.danke'),
 
 
 ]
