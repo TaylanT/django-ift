@@ -34,6 +34,7 @@ class ZeitErfassung(models.Model):
 
 	def __str__(self): #Python 3.3 is __str__
 		return self.beschreibung
+	
 
 	def timecalc(self):
 		return ende - start

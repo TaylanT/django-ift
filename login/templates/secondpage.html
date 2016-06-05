@@ -10,7 +10,12 @@
 
 {% block content %}
 <p>danke</p>
+{% for eintrag in zt %}
+<ul>
+<li>{{ eintrag.beschreibung }}</li>
+<li>{{ eintrag.start|date:"d.m.Y"}}</li>
+</ul>
 
-
+{% endfor %}
 
 {% endblock %}

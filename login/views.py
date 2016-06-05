@@ -51,8 +51,10 @@ def home(request):
 	return render(request, 'home.html', {'form': form})
 
 def danke(request):
+	#zt=ZeitErfassung.objects.all()
+	zt=ZeitErfassung.objects.filter(user__username=request.user)
 
-	return render(request,'secondpage.html')
+	return render(request,'secondpage.html',{'zt':zt})
    
 
     
