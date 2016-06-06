@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from .models import ZeitErfassung
 from .forms import  ZeitForm
 from datetime import datetime
@@ -51,6 +52,10 @@ def home(request):
 
 	return render(request, 'home.html', {'form': form})
 
+@login_required
+def profilesi(request):
+    user_profile = request.user.get_profile()
+    url = user_profile.url
 
 
     

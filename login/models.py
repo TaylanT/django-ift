@@ -3,14 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
-
-
-
-
-# Create your models here.
-
-	
 
 class Betreuer(models.Model):
 	vorname=models.CharField(max_length=120,null=True)
@@ -36,3 +28,12 @@ class ZeitErfassung(models.Model):
 
 	def timecalc(self):
 		return ende - start
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Vertragstunden = models.IntegerField()
+    Vertragsstart = models.DateField()
+    Vertragsende = models.DateField()
+
+
