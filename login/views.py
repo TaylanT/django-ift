@@ -52,10 +52,6 @@ def home(request):
 
 	return render(request, 'home.html', {'form': form})
 
-@login_required
-def profilesi(request):
-    user_profile = request.user.get_profile()
-    url = user_profile.url
 
 
     

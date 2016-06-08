@@ -16,16 +16,24 @@ Including another URLconf
 from django.conf.urls import url,include
 #beispiel
 from django.contrib import admin
+from registration.backends.simple.views import RegistrationView
 import login.views
 import stundenkonto.views
+from login.forms import MyCustomUserForm
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$','login.views.login',name='login'),
+    url(r'^accounts/register/$',
+        RegistrationView.as_view(
+            form_class=MyCustomUserForm
+        ),
+        name='registration_register',
+    ),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', 'login.views.home',name="home"),
     url(r'^stundenkonto/$', stundenkonto.views.ubersicht,name="stundenkonto"),
     url(r'^status/$', stundenkonto.views.status,name="status"),
-    url(r'^profile/$', login.views.profilesi,name="profile"),
+    #url(r'^profile/$', login.views.profilesi,name="profile"),
 
 
 ]

@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractUser, BaseUserManager
+
 
 
 class Betreuer(models.Model):
@@ -11,11 +12,26 @@ class Betreuer(models.Model):
 		return self.nachname
 
 
+
+
+
+
+
+class MyUser(AbstractUser):
+
+    #Username = models.CharField(max_length=40, unique=True)
+    Vertragstunden = models.IntegerField(null=True)
+    Vertragsstart = models.DateField(null=True)
+    Vertragsende = models.DateField(null=True)
+    # USERNAME_FIELD = 'Username'
+    # REQUIRED_FIELDS = '__all__'
+
+
 class ZeitErfassung(models.Model):
 	beschreibung=models.CharField(max_length=120)
 	start=models.DateTimeField()
 	ende=models.DateTimeField()
-	user = models.ForeignKey(User, null=True)
+	user = models.ForeignKey(MyUser, null=True)
 	betreuer = models.ForeignKey(Betreuer, null=True)
 	dt=models.DurationField(null=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
@@ -29,11 +45,8 @@ class ZeitErfassung(models.Model):
 	def timecalc(self):
 		return ende - start
 
+ 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    Vertragstunden = models.IntegerField()
-    Vertragsstart = models.DateField()
-    Vertragsende = models.DateField()
+
 
 
