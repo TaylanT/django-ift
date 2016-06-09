@@ -9,14 +9,28 @@
 
 
 {% block content %}
-
+<div class="container-fluid">
+<div class="row">
+	<div class="center">
+  		<div class="col-md-3"><h2>Tätigkeitsbeschreibung</h2></div>
+  		<div class="col-md-3"><h2>Datum</h2></div>
+  		<div class="col-md-3"><h2>Beginn</h2></div>
+  		<div class="col-md-3"><h2>Ende</h2></div>
+  	</div>
+  </div>
 {% for eintrag in zt %}
-<ul class="list-inline">
-<li>{{ eintrag.beschreibung }}</li>
-<li>{{ eintrag.start|date:"d.m.Y H:i"}}</li>
+  <div class="row">
+  	<div class="center">
+  		<div class="col-md-3">{{ eintrag.beschreibung }}</div>
+  		<div class="col-md-3">{{ eintrag.start|date:"d.m.Y"}}</div>
+  		<div class="col-md-3">{{ eintrag.start|date:"H:i"}}</div>
+  		<div class="col-md-3">{{ eintrag.ende|date:"H:i"}}</div>
+  	</div>
+  </div>
 
-</ul>
+
+
 
 {% endfor %}
-
+</div>
 {% endblock %}

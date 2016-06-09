@@ -10,7 +10,7 @@ from registration.forms import RegistrationForm
 class ZeitForm(forms.ModelForm):
 	class Meta:
 		model = ZeitErfassung
-		fields = ['beschreibung', 'start','ende','betreuer']
+		fields = ['beschreibung', 'start','ende','pause','betreuer']
 		#exclude = ('user')
 
 

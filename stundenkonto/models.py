@@ -6,7 +6,9 @@ from django.db import models
 
 class VertragsUebersicht(models.Model):
 	Vertragsstunden=models.CharField(max_length=120)
-	Vertragsstart=models.DateField()
-	Vertragsende=models.DateField()
+	Vertragsstart=models.DateField(null=True)
+	Vertragsende=models.DateField(null=True)
+#class OffeneStunden(models.Model):
+
 	
 	

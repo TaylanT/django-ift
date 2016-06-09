@@ -17,8 +17,8 @@ def status(request):
 
 	for zeit in user_zeit:
 		summe=summe+zeit.dt
-	
 
+	summe=summe.total_seconds()/3600.0
 	return render(request,'status.html',{'summe':summe})
   
 def thanks(request):
