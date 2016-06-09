@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, HttpResponseRedirect
-from login.models import ZeitErfassung
-from datetime import datetime
+from login.models import ZeitErfassung,MyUser
+import datetime
 
 # Create your views here.
 def ubersicht(request):
@@ -11,5 +11,15 @@ def ubersicht(request):
 
 	return render(request,'uebersicht.html',{'zt':zt})
 def status(request):
-	return render(request,'status.html',{})
-   
+	user_zeit=ZeitErfassung.objects.filter(user__username=request.user)
+
+	summe=datetime.timedelta(0)
+
+	for zeit in user_zeit:
+		summe=summe+zeit.dt
+	
+
+	return render(request,'status.html',{'summe':summe})
+  
+def thanks(request):
+	return render(request,'thanks.html',{})

@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^$', 'login.views.home',name="home"),
     url(r'^stundenkonto/$', stundenkonto.views.ubersicht,name="stundenkonto"),
     url(r'^status/$', stundenkonto.views.status,name="status"),
+    url(r'^thanks/$', stundenkonto.views.thanks,name="thanks"),
     #url(r'^profile/$', login.views.profilesi,name="profile"),
 
 
