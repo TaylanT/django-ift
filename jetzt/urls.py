@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 #beispiel
+
 from django.contrib import admin
 from registration.backends.simple.views import RegistrationView
 import login.views
@@ -22,6 +23,7 @@ import stundenkonto.views
 from login.forms import MyCustomUserForm
 
 from aenderung.views import ZeitUpdate
+from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
@@ -41,7 +43,7 @@ urlpatterns = [
     url(r'^status/$', stundenkonto.views.status,name="status"),
     url(r'^thanks/$', stundenkonto.views.thanks,name="thanks"),
     #url(r'^profile/$', login.views.profilesi,name="profile"),
-     url(r'accounts/profile/zeiterfassung/(?P<pk>[0-9]+)/$', ZeitUpdate.as_view(), name='zeit-update')
+    url(r'accounts/profile/zeiterfassung/(?P<pk>[0-9]+)/$', login_required(ZeitUpdate.as_view()), name='zeit-update')
 
 
 ]

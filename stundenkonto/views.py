@@ -4,7 +4,7 @@ from login.models import ZeitErfassung,MyUser
 import datetime
 import locale
 
-locale.setlocale(locale.LC_ALL, 'de_DE@euro')
+locale.setlocale(locale.LC_ALL, 'de_DE')
 
 # Create your views here.
 def ubersicht(request):
