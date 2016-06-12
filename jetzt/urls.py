@@ -20,7 +20,13 @@ from registration.backends.simple.views import RegistrationView
 import login.views
 import stundenkonto.views
 from login.forms import MyCustomUserForm
+
+from aenderung.views import ZeitUpdate
+
+
 urlpatterns = [
+
+
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$','login.views.login',name='login'),
     url(r'^accounts/register/$',
@@ -35,6 +41,7 @@ urlpatterns = [
     url(r'^status/$', stundenkonto.views.status,name="status"),
     url(r'^thanks/$', stundenkonto.views.thanks,name="thanks"),
     #url(r'^profile/$', login.views.profilesi,name="profile"),
+     url(r'accounts/profile/zeiterfassung/(?P<pk>[0-9]+)/$', ZeitUpdate.as_view(), name='zeit-update')
 
 
 ]

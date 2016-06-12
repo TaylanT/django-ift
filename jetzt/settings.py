@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'registration',
     'login',
     'stundenkonto',
-
+    'aenderung',
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -45,7 +45,8 @@ class ZeitErfassung(models.Model):
 
 	def timecalc(self):
 		return ende - start
-
+	def get_absolute_url(self):
+            return u'/thanks/' 
  
 
 
