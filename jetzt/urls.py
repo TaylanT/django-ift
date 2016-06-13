@@ -43,7 +43,7 @@ urlpatterns = [
     url(r'^status/$', stundenkonto.views.status,name="status"),
     url(r'^thanks/$', stundenkonto.views.thanks,name="thanks"),
     #url(r'^profile/$', login.views.profilesi,name="profile"),
-    url(r'accounts/profile/zeiterfassung/(?P<pk>[0-9]+)/$', login_required(ZeitUpdate.as_view()), name='zeit-update')
+    url(r'zeiterfassung/(?P<pk>[0-9]+)/$', login_required(ZeitUpdate.as_view()), name='zeit-update')
 
 
 ]

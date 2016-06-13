@@ -10,5 +10,8 @@ class ZeitUpdate(UpdateView):
     fields = ['start']
     template_name_suffix = '_update_form'
 
-# Create your views here.
+
+    def get_queryset(self):
+    	query_set = ZeitErfassung.objects.filter(user = self.request.user)
+    	return query_set
 
