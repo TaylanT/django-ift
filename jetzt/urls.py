@@ -22,7 +22,7 @@ import login.views
 import stundenkonto.views
 from login.forms import MyCustomUserForm
 
-from aenderung.views import ZeitUpdate
+from aenderung.views import ZeitUpdate,EntferneEintrag
 from django.contrib.auth.decorators import login_required
 
 
@@ -43,7 +43,8 @@ urlpatterns = [
     url(r'^status/$', stundenkonto.views.status,name="status"),
     url(r'^thanks/$', stundenkonto.views.thanks,name="thanks"),
     #url(r'^profile/$', login.views.profilesi,name="profile"),
-    url(r'zeiterfassung/(?P<pk>[0-9]+)/$', login_required(ZeitUpdate.as_view()), name='zeit-update')
+    url(r'zeiterfassung/(?P<pk>[0-9]+)/$', login_required(ZeitUpdate.as_view()), name='zeit-update'),
+    url(r'zeiterfassung/delete/(?P<pk>[0-9]+)/$', login_required(EntferneEintrag.as_view()), name='zeit-delete')
 
 
 ]
