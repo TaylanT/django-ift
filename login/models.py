@@ -23,6 +23,7 @@ class MyUser(AbstractUser):
     Vertragstunden = models.IntegerField(null=True)
     Vertragsstart = models.DateField(null=True)
     Vertragsende = models.DateField(null=True)
+
     # USERNAME_FIELD = 'Username'
     # REQUIRED_FIELDS = '__all__'
 
@@ -36,6 +37,8 @@ class ZeitErfassung(models.Model):
 	betreuer = models.ForeignKey(Betreuer, null=True)
 	dt=models.DurationField(null=True)
 	timestamp = models.DateTimeField(auto_now_add=True, auto_now=False,null=True)
+	Ueberhang = models.FloatField(default=10.0)
+
 
 	
 

@@ -30,6 +30,7 @@ def status(request):
         summe = summe+zeit.dtc
 
     summe = summe.total_seconds()/3600.0
+    summe = summe+zeit.ueberhang
     return render(request, 'status.html', {'summe': summe})
 
 

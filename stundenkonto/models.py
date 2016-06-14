@@ -9,5 +9,5 @@ class VertragsUebersicht(models.Model):
     Vertragsstunden = models.CharField(max_length=120)
     Vertragsstart = models.DateField(null=True)
     Vertragsende = models.DateField(null=True)
-    Ueberhang = models.F
+    # Ueberhang = models.FloatField(default=10.0)
 # class OffeneStunden(models.Model):
