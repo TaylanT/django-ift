@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from registration.backends.simple.views import RegistrationView
 import login.views
-import stundenkonto.views
+from stundenkonto.views import UebersichView, status, thanks
 from login.forms import MyCustomUserForm
 
 from aenderung.views import ZeitUpdate, EntferneEintrag
@@ -38,9 +38,9 @@ urlpatterns = [
         name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', 'login.views.home', name="home"),
-    url(r'^stundenkonto/$', stundenkonto.views.ubersicht, name="stundenkonto"),
-    url(r'^status/$', stundenkonto.views.status, name="status"),
-    url(r'^thanks/$', stundenkonto.views.thanks, name="thanks"), 
+    url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
+    url(r'^status/$', status, name="status"),
+    url(r'^thanks/$', thanks, name="thanks"), 
     # url(r'^profile/$', login.views.profilesi,name="profile"),
 
     url(r'zeiterfassung/(?P<pk>[0-9]+)/$',

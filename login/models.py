@@ -24,6 +24,7 @@ class MyUser(AbstractUser):
 
 
 class ZeitErfassung(models.Model):
+    """In dieser Tabelle werden alle Zeiten erfasst."""
 
     beschreibung = models.CharField(max_length=120)
     start = models.DateTimeField()
@@ -32,10 +33,14 @@ class ZeitErfassung(models.Model):
     user = models.ForeignKey(MyUser, null=True)
     betreuer = models.ForeignKey(Betreuer, null=True)
     dt = models.DurationField(null=True)
-    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
+    
+    timestamp = models.DateTimeField(auto_now_add=True,
+                                     auto_now=False,
+                                     null=True)
+
     Ueberhang = models.FloatField(default=10.0)
 
-    def __unicode__(self):  # Python 3.3 is __str__
+    def __unicode__(self):
         """Convert into unicode so dass umlaute auch lesbar sind."""
         return u"%s" % self.beschreibung
 

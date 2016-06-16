@@ -1,5 +1,6 @@
 
 from django.shortcuts import render
+from django.views.generic.list import ListView
 from login.models import ZeitErfassung
 import datetime
 import locale
@@ -9,15 +10,25 @@ locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 # Create your views here.
 
 
-def ubersicht(request):
+class UebersichView(ListView):
+    """Liste fuer Uebersicht."""
 
-    heute = datetime.date.today()
-    aktueller_monat = heute.month
-    zt = ZeitErfassung.objects.filter(user__username=request.user,
-    	start__month=aktueller_monat).order_by('start')
 
-    return render(request, 'uebersicht.html',
-        {'zt': zt, 'monat': heute.strftime("%B")})
+    template_name = "uebersicht.html"
+
+    def get_context_data(self, **kwargs):
+        heute = datetime.date.today()
+
+        context = super(UebersichView, self).get_context_data(**kwargs)
+        context['monat'] = heute.strftime("%B")
+        return context
+
+    def get_queryset(self):
+        heute = datetime.date.today()
+        aktueller_monat = heute.month
+        return ZeitErfassung.objects.filter(user__username=self.request.user,
+                                            start__month=aktueller_monat).order_by('start')
+
 
 
 def status(request):
@@ -25,7 +36,7 @@ def status(request):
     aktueller_monat = heute.month
 
     user_zeit = ZeitErfassung.objects.filter(user__username=request.user,
-        start__month=aktueller_monat)
+                                             start__month=aktueller_monat)
     ueberhangstunden = ZeitErfassung.objects.filter(user__username=request.user)
     # vertrag_stunden=MyUser.objects.filter(user__username=request.user)
     summe = datetime.timedelta(0)
