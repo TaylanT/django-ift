@@ -31,7 +31,7 @@ def status(request):
     summe = datetime.timedelta(0)
 
     for zeit in user_zeit:
-        summe = summe + zeit.dtc
+        summe = summe + zeit.dt
 
     summe = summe.total_seconds() / 3600.0
     summe = summe + zeit.ueberhang

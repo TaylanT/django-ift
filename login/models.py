@@ -35,9 +35,10 @@ class ZeitErfassung(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False, null=True)
     Ueberhang = models.FloatField(default=10.0)
 
-    def __str__(self): # Python 3.3 is __str__
-        return self.beschreibung
-    
+    def __unicode__(self):  # Python 3.3 is __str__
+        """Convert into unicode so dass umlaute auch lesbar sind."""
+        return u"%s" % self.beschreibung
+
 
     def timecalc(self):
         return ende - start
