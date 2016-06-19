@@ -38,7 +38,7 @@ def home(request):
         if form.is_valid():
             save_it = form.save(commit=False)
             save_it.user = request.user
-            save_it.dt = save_it.ende - save_it.start
+            # save_it.dt = save_it.ende - save_it.start
             save_it.save()
 
             # process the data in form.cleaned_data as required

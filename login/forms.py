@@ -1,22 +1,22 @@
 from django import forms
 
-from .models import ZeitErfassung, Betreuer,MyUser
+from .models import ZeitErfassung, MyUser
 from registration.forms import RegistrationForm
-from registration.forms import RegistrationForm
-
-
 
 
 class ZeitForm(forms.ModelForm):
-	class Meta:
-		model = ZeitErfassung
-		fields = ['beschreibung', 'start','ende','pause','betreuer']
-		#exclude = ('user')
-
+    """Zeiterfassungsformular."""
+    class Meta:
+        model = ZeitErfassung
+        fields = ['beschreibung', 'start', 'ende', 'betreuer']
 
 
 class MyCustomUserForm(RegistrationForm):
+    """Registrierungs Formular."""
+
     class Meta:
         model = MyUser
-        fields = ['username','Vertragstunden','Vertragsstart','Vertragsende']
-        #fields = ['Username','Vertragstunden']
+        fields = ['first_name', 'username', 'Vertragstunden',
+                  'Vertragsstart', 'Vertragsende']
+        REQUIRED_FIELDS = ['first_name']
+        

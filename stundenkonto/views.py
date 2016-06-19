@@ -1,6 +1,7 @@
 
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.shortcuts import get_object_or_404
 from login.models import ZeitErfassung
 import datetime
 import locale
@@ -16,12 +17,7 @@ class UebersichView(ListView):
 
     template_name = "uebersicht.html"
 
-    def get_context_data(self, **kwargs):
-        heute = datetime.date.today()
 
-        context = super(UebersichView, self).get_context_data(**kwargs)
-        context['monat'] = heute.strftime("%B")
-        return context
 
     def get_queryset(self):
         heute = datetime.date.today()
@@ -29,6 +25,12 @@ class UebersichView(ListView):
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=aktueller_monat).order_by('start')
 
+    def get_context_data(self, **kwargs):
+        heute = datetime.date.today()
+
+        context = super(UebersichView, self).get_context_data(**kwargs)
+        context['monat'] = heute.strftime("%B")
+        return context
 
 
 def status(request):

@@ -18,6 +18,7 @@ class MyUser(AbstractUser):
     Vertragstunden = models.IntegerField(null=True)
     Vertragsstart = models.DateField(null=True)
     Vertragsende = models.DateField(null=True)
+    # first_name = models.CharField(max_length=60, blank=False)
 
     # USERNAME_FIELD = 'Username'
     # REQUIRED_FIELDS = '__all__'
@@ -44,9 +45,17 @@ class ZeitErfassung(models.Model):
         """Convert into unicode so dass umlaute auch lesbar sind."""
         return u"%s" % self.beschreibung
 
-
+    @property
     def timecalc(self):
-        return ende - start
+        """Berechnet timediff."""
+        return self.ende - self.start
+
+    def save(self, *args, **kwargs):
+        """Speichert das feld dt extra ab."""
+        self.dt = self.timecalc
+        super(ZeitErfassung, self).save(*args, **kwargs) # Call the "real" save() method.
+
+
     def get_absolute_url(self):
             return u'/thanks/' 
  
