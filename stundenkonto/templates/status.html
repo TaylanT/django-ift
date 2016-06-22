@@ -2,6 +2,36 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<p>Du hast in diesem Monat insgesamt <b>{{summe}}</b> Stunden gearbeitet</p>
+<div class="container">
+	
 
-{% endblock %}
+		<h2>  Status</h2>
+		<table class="table table-hover">
+			<tr>
+				<th>Gesamtstunden im {{ monat }}</th>
+				<th>Vertragsstunden</th>
+				<th>Stunden aus dem letzten Monat</th>
+			</tr>
+			<tr>
+				<td>{{ summe }}</td>
+				<td>{{ vertragstunden }}</td>
+				<td>{{ stundenLetzterMonat }}</td>
+			</tr>
+		</table>
+
+		<p>Du hast in diesem Monat insgesamt <b>{{summe}}</b> von <b>{{vertragstunden}}</b> Stunden gearbeitet</p>
+
+			<br>
+
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" style="width: {{prozent}}%;">
+					{{prozent}}%
+				</div>
+			</div>
+			{% if prozent == 100 %}
+			<b>Anzahl an Stunden im Monat erreicht!</b>
+			{% endif %}
+
+
+	</div>
+	{% endblock %}
