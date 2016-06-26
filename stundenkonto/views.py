@@ -36,7 +36,10 @@ def status(request):
 	#animation fuer geleistete stundenanzahl
 	prozent = (summe / vertragstunden) * 100
 
-	#monatsende
+	#info bei plusstunden
+	ueberstunden = summe - vertragstunden
+
+	#monatsende wann und wo ausfuehren?
 	monatsende = calendar.monthrange(heute.year, heute.month)[1]
 	
 	if(heute.day == monatsende):
@@ -46,7 +49,7 @@ def status(request):
 		aktuellerUser.save()
 
 	return render(request,'status.html',{'summe':summe, 'vertragstunden':vertragstunden, 'prozent':prozent, 
-		'stundenLetzterMonat':stundenLetzterMonat, 'monat':heute.strftime("%B")})
+		'stundenLetzterMonat':stundenLetzterMonat, 'monat':heute.strftime("%B"), 'ueberstunden':ueberstunden})
   
 def thanks(request):
 	return render(request,'thanks.html',{})
