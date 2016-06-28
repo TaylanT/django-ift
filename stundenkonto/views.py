@@ -5,10 +5,12 @@ from django.shortcuts import get_object_or_404
 from login.models import ZeitErfassung
 import datetime
 import locale
+import calendar
 
-locale.setlocale(locale.LC_ALL, 'de_DE@euro')
+locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 # Create your views here.
+
 
 
 class UebersichView(ListView):
@@ -53,3 +55,4 @@ def status(request):
 
 def thanks(request):
     return render(request, 'thanks.html', {})
+

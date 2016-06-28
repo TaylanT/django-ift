@@ -6,11 +6,8 @@
 <head>
   <title>Hiwi Zeiterfassung</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   
-
-
- 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
  <!-- ... -->
   <script type="text/javascript" src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
@@ -32,21 +29,22 @@
  
 </div> -->
 
-<div class="container-fluid">
+<div class="container">
+  
 
             
 
           <div class='row'>
 
-            <div class='col-md-12'>
+            <div class='col-md-6'>
               {% block content %}
 
               {% endblock %}
               </div>
               </div>
               
-
-    </div> <!-- /container -->
+              
+</div> <!-- /container -->
      
 
 
@@ -58,23 +56,19 @@
                                               sideBySide:true,
                                               format: 'MM/DD/YY HH:mm',
                                               
+                                              
     });
         $('#id_ende').datetimepicker({locale:moment.locale('de'),
                                               sideBySide:true,
                                               format: 'MM/DD/YY HH:mm',
+                                              useCurrent:true,
                                               
                                               
 
     });
     });
 
-</script>
-
-
-
-   
-
-    
+</script>   
 
 </body>
 </html>

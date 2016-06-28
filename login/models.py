@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Betreuer(models.Model):
+<<<<<<< HEAD
     vorname = models.CharField(max_length=120, null=True)
     nachname = models.CharField(max_length=120, null=True)
 
@@ -20,11 +21,10 @@ class MyUser(AbstractUser):
     Vertragsende = models.DateField(null=True)
     # first_name = models.CharField(max_length=60, blank=False)
 
-    # USERNAME_FIELD = 'Username'
-    # REQUIRED_FIELDS = '__all__'
 
 
 class ZeitErfassung(models.Model):
+
     """In dieser Tabelle werden alle Zeiten erfasst."""
 
     beschreibung = models.CharField(max_length=120)
@@ -57,5 +57,5 @@ class ZeitErfassung(models.Model):
 
 
     def get_absolute_url(self):
-            return u'/thanks/' 
+        return u'/thanks/' 
  
