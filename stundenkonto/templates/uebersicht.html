@@ -22,9 +22,9 @@
 {% for eintrag in object_list %}
 <tr>
   	<td>{{ eintrag.beschreibung }}</td>
-    <td>{{ {{ eintrag.start|date:"d.m.Y"}} - {{ eintrag.ende|date:"d.m.Y"}} }}</td>
+    <td>{{ eintrag.start|date:"d.m.Y"}} - {{ eintrag.ende|date:"d.m.Y"}}</td>
     <td>{{ eintrag.start|date:"H:i"}} - {{ eintrag.ende|date:"H:i"}}</td>
-    <td>{{ eintrag.dt }} }}</td>
+    <td>{{ eintrag.dt }}</td>
   		
   <td><a href ="/accounts/profile/zeiterfassung/{{eintrag.id}}">
 
@@ -34,7 +34,7 @@
         <a href ="/accounts/profile/zeiterfassung/delete/{{eintrag.id}}">
         <button type="button" class="btn btn-default" aria-label="entfernen">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-<<<<<<< HEAD
+
         </button>
         </a>  </td>
 </tr>

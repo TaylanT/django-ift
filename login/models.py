@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Betreuer(models.Model):
-<<<<<<< HEAD
+
     vorname = models.CharField(max_length=120, null=True)
     nachname = models.CharField(max_length=120, null=True)
 

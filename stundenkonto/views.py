@@ -7,7 +7,7 @@ import datetime
 import locale
 import calendar
 
-locale.setlocale(locale.LC_ALL, 'deu_deu')
+locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
 # Create your views here.
 
