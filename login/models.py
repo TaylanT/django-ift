@@ -30,7 +30,7 @@ class ZeitErfassung(models.Model):
     beschreibung = models.CharField(max_length=120)
     start = models.DateTimeField()
     ende = models.DateTimeField()
-    pause = models.DurationField()
+    # pause = models.DurationField()
     user = models.ForeignKey(MyUser, null=True)
     betreuer = models.ForeignKey(Betreuer, null=True)
     dt = models.DurationField(null=True)
