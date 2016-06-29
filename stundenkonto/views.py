@@ -3,11 +3,12 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from login.models import ZeitErfassung
+from stundenkonto.models import StatusUebersicht
 import datetime
 import locale
 import calendar
 
-locale.setlocale(locale.LC_ALL, 'de_DE@euro')
+locale.setlocale(locale.LC_ALL, 'de_DE')
 
 # Create your views here.
 
@@ -36,19 +37,11 @@ class UebersichView(ListView):
 
 
 def status(request):
-    heute = datetime.date.today()
-    aktueller_monat = heute.month
+    # heute = datetime.date.today()
+    # aktueller_monat = heute.month
 
-    user_zeit = ZeitErfassung.objects.filter(user__username=request.user,
-                                             start__month=aktueller_monat)
-    ueberhangstunden = ZeitErfassung.objects.filter(user__username=request.user)
-    # vertrag_stunden=MyUser.objects.filter(user__username=request.user)
-    summe = datetime.timedelta(0)
-
-    for zeit in user_zeit:
-        summe = summe + zeit.ende-zeit.start
-
-    summe = summe.total_seconds() / 3600.0
+    test = StatusUebersicht()
+    summe = test.berechnen(request)
     # summe = summe + zeit.ueberhang
     return render(request, 'status.html', {'summe': summe})
 
