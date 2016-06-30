@@ -19,7 +19,7 @@ from login.models import MyUser
 
 class StatusUebersicht(models.Model):
     """Ueberblick uber aktuellen stundenstatus nach MTC."""
-    Monatsstunden = models.FloatField()
+    Monatsstunden = models.FloatField(default=0)
     User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,
     )
     Ueberhang = models.FloatField(default=0)
@@ -28,20 +28,20 @@ class StatusUebersicht(models.Model):
         return '%s' %(self.User)
 
     def berechnen(self, request):
+        """Summiert stundenanzahl."""
         heute = datetime.date.today()
         aktueller_monat = heute.month
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
         
         t = StatusUebersicht.objects.get(User_id=request.user.id)
-        
         zeit_stunden = zeit['test'].total_seconds()/3600
-        #self.Monatsstunden = zeit_stunden
         t.User = request.user
         t.Monatsstunden = zeit_stunden  # change field
-        t.save() # this will update only
+        t.save()
         # TODO nonetype abfang hinzufuegen fuer erreichen status auch ohne eintrag
         return zeit_stunden
+
     def ueberhang(self, request):
         """Berechnung des Stundenueberhangs aus Vormonat."""
         aktueller_benutzer = MyUser.objects.get(username=request.user)
@@ -51,14 +51,7 @@ class StatusUebersicht(models.Model):
 
         t = StatusUebersicht.objects.get(User_id=request.user.id)
         t.Ueberhang = zeit_stunden -Vertragsstunden_benutzer-self.Ueberhang
-        t.Monatsstunden=zeit_stunden
+        t.Monatsstunden = zeit_stunden
         t.User = request.user
-        #self.save(update_fields=["Ueberhang"])
         t.save()
         return t.Ueberhang
-
-
-
-        
-        
-

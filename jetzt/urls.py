@@ -17,8 +17,8 @@ from django.conf.urls import url, include
 
 
 from django.contrib import admin
-from registration.backends.simple.views import RegistrationView
-import login.views
+# from registration.backends.simple.views import RegistrationView
+from login.views import EigeneRegistration, login
 from stundenkonto.views import UebersichView, status, thanks
 from login.forms import MyCustomUserForm
 
@@ -31,8 +31,13 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     # url(r'^login/$','login.views.login',name='login'),
+    # url(r'^accounts/register/$',
+    #     RegistrationView.as_view(
+    #         form_class=MyCustomUserForm
+    #     ),
+    #     name='registration_register'),
     url(r'^accounts/register/$',
-        RegistrationView.as_view(
+        EigeneRegistration.as_view(
             form_class=MyCustomUserForm
         ),
         name='registration_register'),
