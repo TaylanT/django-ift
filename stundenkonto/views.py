@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
-from login.models import ZeitErfassung
+from login.models import ZeitErfassung, MyUser
 from stundenkonto.models import StatusUebersicht
 import datetime
 import locale
@@ -37,15 +37,16 @@ class UebersichView(ListView):
 
 
 def status(request):
-    # heute = datetime.date.today()
-    # aktueller_monat = heute.month
 
     test = StatusUebersicht()
     summe = test.berechnen(request)
-    
     ueberhang = test.ueberhang(request)
-    # summe = summe + zeit.ueberhang
-    return render(request, 'status.html', {'summe': summe, 'ueberhang': ueberhang})
+    return render(request, 'status.html', {'summe': summe,
+                                           'ueberhang': ueberhang,
+                                           'monat': StatusUebersicht().get_aktuellermonat(),
+                                           'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
+                                           
+                                           })
 
 
 def thanks(request):

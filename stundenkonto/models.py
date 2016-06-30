@@ -27,6 +27,12 @@ class StatusUebersicht(models.Model):
     def __str__(self): # Python 3.3 is __str__
         return '%s' %(self.User)
 
+    def get_aktuellermonat(self):
+        heute = datetime.date.today()
+        return heute.strftime("%B")
+
+
+
     def berechnen(self, request):
         """Summiert stundenanzahl."""
         heute = datetime.date.today()
@@ -34,8 +40,9 @@ class StatusUebersicht(models.Model):
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
         
-        t = StatusUebersicht.objects.get(User_id=request.user.id)
         zeit_stunden = zeit['test'].total_seconds()/3600
+        t = StatusUebersicht.objects.get(User_id=request.user.id)
+        
         t.User = request.user
         t.Monatsstunden = zeit_stunden  # change field
         t.save()
@@ -50,7 +57,7 @@ class StatusUebersicht(models.Model):
         zeit_stunden = self.berechnen(request)
 
         t = StatusUebersicht.objects.get(User_id=request.user.id)
-        t.Ueberhang = zeit_stunden -Vertragsstunden_benutzer-self.Ueberhang
+        t.Ueberhang = Vertragsstunden_benutzer-zeit_stunden 
         t.Monatsstunden = zeit_stunden
         t.User = request.user
         t.save()
