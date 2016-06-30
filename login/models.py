@@ -30,7 +30,7 @@ class ZeitErfassung(models.Model):
     beschreibung = models.CharField(max_length=120)
     start = models.DateTimeField()
     ende = models.DateTimeField()
-    pause = models.DurationField(null=True)
+    # pause = models.DurationField(null=True)
     user = models.ForeignKey(MyUser, null=True)
     betreuer = models.ForeignKey(Betreuer, null=True)
     dt = models.DurationField(null=True)
@@ -39,7 +39,7 @@ class ZeitErfassung(models.Model):
                                      auto_now=False,
                                      null=True)
 
-    Ueberhang = models.FloatField(default=10.0)
+    # Ueberhang = models.FloatField(default=10.0)
 
     def __unicode__(self):
         """Convert into unicode so dass umlaute auch lesbar sind."""

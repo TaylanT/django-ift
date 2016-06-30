@@ -8,7 +8,7 @@ import datetime
 import locale
 import calendar
 
-locale.setlocale(locale.LC_ALL, 'de_DE')
+locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
 # Create your views here.
 
@@ -42,8 +42,10 @@ def status(request):
 
     test = StatusUebersicht()
     summe = test.berechnen(request)
+    
+    ueberhang = test.ueberhang(request)
     # summe = summe + zeit.ueberhang
-    return render(request, 'status.html', {'summe': summe})
+    return render(request, 'status.html', {'summe': summe, 'ueberhang': ueberhang})
 
 
 def thanks(request):
