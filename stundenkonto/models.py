@@ -39,13 +39,21 @@ class StatusUebersicht(models.Model):
         aktueller_monat = heute.month
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
+
+        if zeit['test']:
         
-        zeit_stunden = zeit['test'].total_seconds()/3600
-        t = StatusUebersicht.objects.get(User_id=request.user.id)
-        
-        t.User = request.user
-        t.Monatsstunden = zeit_stunden  # change field
-        t.save()
+            zeit_stunden = zeit['test'].total_seconds()/3600
+            t = StatusUebersicht.objects.get(User_id=request.user.id)
+            
+            t.User = request.user
+            t.Monatsstunden = zeit_stunden  # change field
+            t.save()
+        if not zeit['test']:
+            zeit_stunden = 0
+            t = StatusUebersicht.objects.get(User_id=request.user.id)
+            t.User = request.user
+            t.Monatsstunden = zeit_stunden  # change field
+            t.save()
         # TODO nonetype abfang hinzufuegen fuer erreichen status auch ohne eintrag
         return zeit_stunden
 
