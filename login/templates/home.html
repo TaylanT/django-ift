@@ -17,7 +17,25 @@
 
 </form>
 
+<script type="text/javascript">
+    $(function () {
+        $('#id_start').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'DD.MM.YYYY HH:mm',
+                                              
+                                              
+    });
+        $('#id_ende').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'DD.MM.YYYY HH:mm',
+                                              useCurrent:true,
+                                              
+                                              
 
+    });
+    });
+
+</script>  
 	
 
 
