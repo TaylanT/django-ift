@@ -5,7 +5,9 @@
 
 {% block content %}
 
+
  {% if user.is_authenticated %}
+ <div class='col-md-6 col-md-offset-3'>
  <h1> Hallo {{ request.user.username }}, du bist eingeloggt!</h1>
 	
 	
@@ -16,6 +18,7 @@
 <input class='btn btn-primary' type='submit' value='Speichern' />
 
 </form>
+</div>
 
 <script type="text/javascript">
     $(function () {
@@ -37,11 +40,13 @@
 
 </script>  
 	
-
+{% else%}
+<div class='col-md-12'>
+<h1>Deine Hiwi Stunden werden nun Online erfasst. Bitte melde dich an oder registriere dich um fortzufahren. </h1>
 
 {% endif %}
 
 
-
+</div>
 {% endblock %}
 
