@@ -43,7 +43,8 @@ def status(request):
     test = StatusUebersicht()
     summe = test.berechnen(request)
     ueberhang = test.ueberhang(request)
-    return render(request, 'status.html', {'summe': summe,
+    summeNeu = summe/ueberhang
+    return render(request, 'status.html', {'summeNeu': summeNeu, 'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': StatusUebersicht().get_aktuellermonat(),
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
