@@ -10,4 +10,25 @@
 
   <input class='btn btn-primary' type='submit' value='Speichern' />
 </form>
+
+<script type="text/javascript">
+    $(function () {
+        $('#id_Vertragsstart').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'MM/DD/YY',
+                                              
+                                              
+    });
+        $('#id_Vertragsende').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'MM/DD/YY',
+                                              useCurrent:true,
+                                              
+                                              
+
+    });
+    });
+
+</script>  
+
 {% endblock %}
