@@ -10,25 +10,22 @@ import calendar
 
 locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
+
 # Create your views here.
-
-
-
 class UebersichView(ListView):
     """Liste fuer Uebersicht."""
 
-
     template_name = "uebersicht.html"
 
-
-
     def get_queryset(self):
+        """"Angepasste Queryset."""
         heute = datetime.date.today()
         aktueller_monat = heute.month
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=aktueller_monat).order_by('start')
 
     def get_context_data(self, **kwargs):
+        """Erweitererung contexdata."""
         heute = datetime.date.today()
 
         context = super(UebersichView, self).get_context_data(**kwargs)
@@ -37,7 +34,7 @@ class UebersichView(ListView):
 
 
 def status(request):
-
+    """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
     test = StatusUebersicht()
     summe = test.berechnen(request)
     ueberhang = test.ueberhang(request)
@@ -45,7 +42,6 @@ def status(request):
                                            'ueberhang': ueberhang,
                                            'monat': StatusUebersicht().get_aktuellermonat(),
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
-                                           
                                            })
 
 
