@@ -2,9 +2,31 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class='col-md-6'>
 <form action="" method="post">{% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Update" />
 </form>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#id_start').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'DD.MM.YYYY HH:mm',
+                                              
+                                              
+    });
+        $('#id_ende').datetimepicker({locale:moment.locale('de'),
+                                              sideBySide:true,
+                                              format: 'DD.MM.YYYY HH:mm',
+                                              useCurrent:true,
+                                              
+                                              
+
+    });
+    });
+
+</script>
 
 {% endblock %}
