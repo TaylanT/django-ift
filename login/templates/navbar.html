@@ -9,7 +9,7 @@
      <li><a href="{% url 'home' %}">Home</a></li>
    </ul>
    <ul class="nav navbar-nav navbar-right">
-   
+     
     {% if request.user.is_authenticated %}
     <li><a href="{% url 'status' %}">Status</a></li>
     <li><a href="{% url 'stundenkonto' %}">Stundenkonto</a></li>
