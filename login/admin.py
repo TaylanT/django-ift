@@ -27,10 +27,12 @@ from .models import ZeitErfassung,Betreuer,MyUser
 
 
 
+class ZeitErfassungAdmin(admin.ModelAdmin):
+    list_filter = ('user', 'start')
+    list_display = ('beschreibung', 'user','start')
 
 
-
-admin.site.register(ZeitErfassung)
+admin.site.register(ZeitErfassung, ZeitErfassungAdmin)
 admin.site.register(MyUser)
 admin.site.register(Betreuer)
 

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ... -->
+  
   <script type="text/javascript" src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
   <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
   <script type="text/javascript" src="/static/bower_components/moment/moment-with-locale.js"></script>
@@ -21,31 +21,11 @@
 </head>
 <body>
   {% include 'navbar.html' %}
-
-<!-- <div class="container">
-  <div class="jumbotron">
-    <h1>Ift Hiwi Zeiterfassung</h1>
-    <p>Herzlich Wilkommen!!!</p> 
-  </div>
- 
-</div> -->
-
-<div class="container">
-  
-
-  
-
-  <div class='row'>
-
-    
-    {% block content %}
-
-    {% endblock %}
-    
-  </div>
-  
-  
-</div> <!-- /container --> 
-
+  <div class="container">
+    <div class='row'>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div> <!-- /container --> 
 </body>
 </html>
