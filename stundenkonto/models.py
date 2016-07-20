@@ -1,3 +1,5 @@
+#!/usr/bin/python
+          # -*- coding: latin-1 -*-
 from __future__ import unicode_literals
 import datetime
 from django.db import models
@@ -38,7 +40,7 @@ class StatusUebersicht(models.Model):
         """Summiert stundenanzahl."""
         heute = datetime.date.today()
         aktueller_monat = heute.month
-        aktueller_monat= 6
+        # aktueller_monat= 6
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
         # wenn vorhanden update
@@ -64,7 +66,9 @@ class StatusUebersicht(models.Model):
     def ueberhang(self, request):
 
         """Berechnung des Stundenueberhangs aus Vormonat."""
-        aktueller_monat= 6
+        # aktueller_monat= 6
+        heute = datetime.date.today()
+        aktueller_monat = heute.month
         aktueller_benutzer = MyUser.objects.get(username=request.user)
         Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
 
@@ -76,3 +80,10 @@ class StatusUebersicht(models.Model):
         t.User = request.user
         t.save()
         return t.Ueberhang
+
+"""To Dos:
+-Jahr mit hinzufügen
+-buttons 
+-view gestalten
+-Datenbank design
+""" 
