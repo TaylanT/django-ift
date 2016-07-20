@@ -1,5 +1,5 @@
 from django.contrib import admin
-#beispiel
+from daterange_filter.filter import DateRangeFilter
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
@@ -28,7 +28,7 @@ from .models import ZeitErfassung,Betreuer,MyUser
 
 
 class ZeitErfassungAdmin(admin.ModelAdmin):
-    list_filter = ('user', 'start')
+    list_filter = ('user', ('start', DateRangeFilter))
     list_display = ('beschreibung', 'user','start')
 
 

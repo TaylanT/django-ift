@@ -23,6 +23,7 @@ class StatusUebersicht(models.Model):
     User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,
     )
     Ueberhang = models.FloatField(default=0)
+    Monat = models.IntegerField()
     
     def __str__(self): # Python 3.3 is __str__
         return '%s' %(self.User)
@@ -39,21 +40,38 @@ class StatusUebersicht(models.Model):
         aktueller_monat = heute.month
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
-
+        # wenn vorhanden update
         if zeit['test']:
         
             zeit_stunden = zeit['test'].total_seconds()/3600
-            t = StatusUebersicht.objects.get(User_id=request.user.id)
+            obj, created = StatusUebersicht.objects.get_or_create(
+                User_id=request.user.id,
+                Monat=aktueller_monat,
+                defaults={'User': request.user,
+                          'Monat': aktueller_monat,
+                          'Monatsstunden': zeit_stunden}
+            )
+            # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
             
-            t.User = request.user
-            t.Monatsstunden = zeit_stunden  # change field
-            t.save()
+            # t.User = request.user
+            # t.Monatsstunden = zeit_stunden  # change field
+            # t.save()
+        # wenn nicht vorhanden initialisieren
         if not zeit['test']:
             zeit_stunden = 0
-            t = StatusUebersicht.objects.get(User_id=request.user.id)
-            t.User = request.user
-            t.Monatsstunden = zeit_stunden  # change field
-            t.save()
+            # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
+            obj, created = StatusUebersicht.objects.get_or_create(
+                User=request.user,
+                Monat=aktueller_monat,
+                defaults={'User': request.user,
+                          'Monat': aktueller_monat,
+                          'Monatsstunden': zeit_stunden}
+            )
+            # t.User = request.user
+            # # start datum
+            # t.Monat = aktueller_monat
+            # t.Monatsstunden = zeit_stunden  # change field
+            # t.save()
         # TODO nonetype abfang hinzufuegen fuer erreichen status auch ohne eintrag
         return zeit_stunden
 

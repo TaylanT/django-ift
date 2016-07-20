@@ -1,6 +1,11 @@
 from django.contrib import admin
 from stundenkonto.models import StatusUebersicht
 
-admin.site.register(StatusUebersicht)
+
+class StatusUebersichtAdmin(admin.ModelAdmin):
+    list_display = ('User', 'Monat')
+
+
+admin.site.register(StatusUebersicht, StatusUebersichtAdmin)
 
 # Register your models here.

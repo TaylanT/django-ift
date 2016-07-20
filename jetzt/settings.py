@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'login',
     'stundenkonto',
     'aenderung',
+    'daterange_filter',
 ]
 
 MIDDLEWARE_CLASSES = [

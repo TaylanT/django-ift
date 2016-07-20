@@ -13,7 +13,7 @@ class EigeneRegistration(RegistrationView):
 
     
     def get_success_url(self, user):
-        o = StatusUebersicht(User=user)
+        o = StatusUebersicht(User=user, Monat=datetime.now().month)
         o.save()
         return '/'
 
