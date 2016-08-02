@@ -9,8 +9,8 @@ import locale
 import calendar
 
 
-locale.setlocale(locale.LC_ALL, 'de_DE@euro')
-# locale.setlocale(locale.LC_ALL, 'deu_deu')
+#locale.setlocale(locale.LC_ALL, 'de_DE@euro')
+locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 
 # Create your views here.
@@ -19,19 +19,27 @@ class UebersichView(ListView):
 
     template_name = "uebersicht.html"
 
-    def get_queryset(self):
+    def get_queryset(self, *args, **kwargs):
         """"Angepasste Queryset."""
-        heute = datetime.date.today()
-        aktueller_monat = heute.month
+        if(self.kwargs != {}):
+            monat = self.kwargs['monat']
+            print(monat)
+        else:
+            heute = datetime.date.today()
+            monat = heute.month
         return ZeitErfassung.objects.filter(user__username=self.request.user,
-                                            start__month=aktueller_monat).order_by('start')
+                                            start__month=monat).order_by('start')
 
     def get_context_data(self, **kwargs):
         """Erweitererung contexdata."""
-        heute = datetime.date.today()
-
+        #heute = datetime.date.today()
         context = super(UebersichView, self).get_context_data(**kwargs)
-        context['monat'] = heute.strftime("%B")
+        #context['monat'] = heute.strftime("%B")
+        if(self.kwargs != {}):
+            monat = self.kwargs['monat']
+        else:
+            monat =  datetime.date.today().month
+        context['monat'] = monat
         return context
 
 
