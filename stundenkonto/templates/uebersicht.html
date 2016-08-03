@@ -8,8 +8,21 @@
 
 
 
-<div class="container">
+
 <h2> Stundenkonto für {{monat}} {{jahr}}</h2>
+<div class="col-md-4">
+<table class="table table-hover">
+<tr>
+  <th>VerfuegbareMonate</th>
+</tr>
+{% for monat in verfuegbareMonate %}
+<tr>
+    <td><a href ="{{monat|date:"m"}}"> {{ monat|date:"m" }} </a></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+ <div class="col-md-8">
 <table class="table table-hover">
 <tr>
   <th>Tätigkeitsbeschreibung</th>
@@ -42,5 +55,6 @@
 
 </table>
 </div>
+
 
 {% endblock %}

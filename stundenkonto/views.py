@@ -43,10 +43,13 @@ class UebersichView(ListView):
             monat = datum.strftime("%B")
         else:
             monat =  heute.strftime("%B")
+        # VerfuegbareMonate als Query, doppelte Eintraege loeschen!!
+        monate = ZeitErfassung.objects.values_list('start', flat=True).filter(user__username=self.request.user)
+        context['verfuegbareMonate'] = monate
+
         context['monat'] = monat
         context['jahr'] = heute.year
         return context
-
 
 def status(request):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""

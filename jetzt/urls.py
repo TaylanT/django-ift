@@ -44,10 +44,7 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', 'login.views.home', name="home"),
     url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
-    # Fuer Monat 10 - 12 (00, 20 funktioniert auch!)
-    url(r'^stundenkonto/(?P<monat>[0-2]{2})/$', UebersichView.as_view(), name="stundenkonto"),
-    # Fuer Monat 1 - 9
-    url(r'^stundenkonto/(?P<monat>[1-9])/$', UebersichView.as_view(), name="stundenkonto"),
+    url(r'^stundenkonto/(?P<monat>[0-9]{2})/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^status/$', status, name="status"),
     url(r'^thanks/$', thanks, name="thanks"), 
     # url(r'^profile/$', login.views.profilesi,name="profile"),
