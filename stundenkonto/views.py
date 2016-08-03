@@ -23,23 +23,28 @@ class UebersichView(ListView):
         """"Angepasste Queryset."""
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
-            print(monat)
         else:
-            heute = datetime.date.today()
-            monat = heute.month
+            monat = datetime.date.today().month
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=monat).order_by('start')
 
     def get_context_data(self, **kwargs):
         """Erweitererung contexdata."""
-        #heute = datetime.date.today()
+        heute = datetime.date.today()
+        jahr = heute.year
         context = super(UebersichView, self).get_context_data(**kwargs)
         #context['monat'] = heute.strftime("%B")
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
+            monat = int(monat)
+
+            # Neues Datum mit eingebenen Monat geht bestimmt besser ->> #heute.replace(month = monat)
+            datum = datetime.date(jahr, monat, 1)
+            monat = datum.strftime("%B")
         else:
-            monat =  datetime.date.today().month
+            monat =  heute.strftime("%B")
         context['monat'] = monat
+        context['jahr'] = heute.year
         return context
 
 
