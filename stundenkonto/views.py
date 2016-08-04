@@ -43,10 +43,10 @@ class UebersichView(ListView):
             monat = datum.strftime("%B")
         else:
             monat =  heute.strftime("%B")
-        # VerfuegbareMonate als Query, doppelte Eintraege loeschen!!
-        monate = ZeitErfassung.objects.values_list('start', flat=True).filter(user__username=self.request.user)
-        context['verfuegbareMonate'] = monate
+        # VerfuegbareMonate aus Statusuebersicht des Users
+        monate = StatusUebersicht.objects.values_list('Monat', flat=True).filter(User=self.request.user).order_by('Monat')
 
+        context['monate'] = monate
         context['monat'] = monat
         context['jahr'] = heute.year
         return context
@@ -57,7 +57,7 @@ def status(request):
     summe = test.berechnen(request)
     ueberhang = test.ueberhang(request)
     # summeNeu = summe/ueberhang
-    return render(request, 'status.html', { 'summe': summe, 
+    return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': StatusUebersicht().get_aktuellermonat(),
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden

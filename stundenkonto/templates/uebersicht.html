@@ -15,11 +15,14 @@
 <tr>
   <th>VerfuegbareMonate</th>
 </tr>
-{% for monat in verfuegbareMonate %}
+{% for monat in monate %}
 <tr>
-    <td><a href ="{{monat|date:"m"}}"> {{ monat|date:"m" }} </a></td>
+    <td><a href ="/stundenkonto/{{monat}}"> {{ monat }} </a></td>
 </tr>
 {% endfor %}
+<tr>
+    <td><a href ="/stundenkonto/1"> Januar </a></td>
+</tr>
 </table>
 </div>
  <div class="col-md-8">
@@ -35,7 +38,7 @@
 {% for eintrag in object_list %}
 <tr>
   	<td>{{ eintrag.beschreibung }}</td>
-    <td>{{ eintrag.start|date:"d.m.Y"}} - {{ eintrag.ende|date:"d.m.Y"}}</td>
+    <td>{{ eintrag.start|date:"d.m.Y"}} {% if eintrag.start|date:"d.m.Y" != eintrag.ende|date:"d.m.Y" %} - {{ eintrag.ende|date:"d.m.Y"}} {% endif %}</td>
     <td>{{ eintrag.start|date:"H:i"}} - {{ eintrag.ende|date:"H:i"}}</td>
     <td>{{ eintrag.dt }}</td>
   		
