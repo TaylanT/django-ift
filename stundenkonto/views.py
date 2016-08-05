@@ -16,7 +16,6 @@ locale.setlocale(locale.LC_ALL, 'de_DE')
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
 
-
 # Create your views here.
 class UebersichView(ListView):
     """Liste fuer Uebersicht."""
@@ -25,13 +24,12 @@ class UebersichView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         """"Angepasste Queryset."""
-        monat = self.kwargs['monat']
-        # if(self.kwargs != {}):
-        #     monat = self.kwargs['monat']
-        #     print(monat)
-        # else:
-        #     heute = datetime.date.today()
-        #     monat = heute.month
+        if(self.kwargs != {}):
+            monat = self.kwargs['monat']
+            print(monat)
+        else:
+            heute = datetime.date.today()
+            monat = heute.month
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=monat).order_by('start')
 
@@ -48,7 +46,7 @@ class UebersichView(ListView):
 
         monatsliste = []
         for x in range(1, 12):
-            zt = ZeitErfassung.objects.filter(user__username='taylan',
+            zt = ZeitErfassung.objects.filter(user__username=self.request.user,
                                               start__month=x)
             if zt.count() > 0:
                 monatsliste.append(x)
@@ -56,9 +54,6 @@ class UebersichView(ListView):
                 pass
         context['monatslist'] = monatsliste
         return context
-
-
-
 
 
 def status(request):
