@@ -56,11 +56,19 @@ class UebersichView(ListView):
         return context
 
 
-def status(request):
+def status(request, *args, **kwargs):
+    if(kwargs != {}):
+            monat = kwargs['monat']
+    else:
+        monat = datetime.date.today().month
+
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
+    print monat
     test = StatusUebersicht()
-    summe = test.berechnen(request)
-    ueberhang = test.ueberhang(request)
+    summe = test.berechnen(request, monat)
+    print summe
+    print 'sex'
+    ueberhang = test.ueberhang(request, monat)
     # summeNeu = summe/ueberhang
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
