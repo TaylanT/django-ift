@@ -10,8 +10,8 @@ import calendar
 
 
 
-locale.setlocale(locale.LC_ALL, 'de_DE')
-# locale.setlocale(locale.LC_ALL, 'deu_deu')
+#locale.setlocale(locale.LC_ALL, 'de_DE')
+locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
@@ -26,7 +26,6 @@ class UebersichView(ListView):
         """"Angepasste Queryset."""
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
-            print(monat)
         else:
             heute = datetime.date.today()
             monat = heute.month
@@ -61,19 +60,22 @@ def status(request, *args, **kwargs):
             monat = kwargs['monat']
     else:
         monat = datetime.date.today().month
-
+    monatsliste = []
+    for x in range(1, 12):
+        zt = ZeitErfassung.objects.filter(user__username=request.user, start__month=x)
+        if zt.count() > 0:
+            monatsliste.append(x)
+        else:
+            pass
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
-    print monat
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
-    print summe
-    print 'sex'
     ueberhang = test.ueberhang(request, monat)
-    # summeNeu = summe/ueberhang
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
-                                           'monat': StatusUebersicht().get_aktuellermonat(),
-                                           'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
+                                           'monat': monat,
+                                           'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
+                                           'monatslist' : monatsliste,
                                            })
 
 

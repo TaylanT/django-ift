@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^stundenkonto/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^status/(?P<monat>[0-9]+)/', status, name="status"),
+    url(r'^status/$', status, name="status"),
     url(r'^thanks/$', thanks, name="thanks"), 
     # url(r'^profile/$', login.views.profilesi,name="profile"),
 
