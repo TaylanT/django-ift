@@ -41,7 +41,7 @@ class UebersichView(ListView):
             monat = self.kwargs['monat']
         else:
             monat = datetime.date.today().month
-        context['monat'] = monat
+        context['monat'] = monatsausgabe(monat)
 
         monatsliste = []
         for x in range(1, 12):
@@ -71,6 +71,7 @@ def status(request, *args, **kwargs):
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
     ueberhang = test.ueberhang(request, monat)
+    monat = monatsausgabe(monat)
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat,
@@ -81,4 +82,32 @@ def status(request, *args, **kwargs):
 
 def thanks(request):
     return render(request, 'thanks.html', {})
+
+# wollte mal eine funktion schreiben
+def monatsausgabe(monat):
+    if monat == "1":
+        return "Januar"
+    if monat == "2":
+        return "Februar"
+    if monat == "3":
+        return "Maerz"
+    if monat == "4":
+        return "April"
+    if monat == "5":
+        return "Mai"
+    if monat == "6":
+        return "Juni"
+    if monat == "7":
+        return "Juli"
+    if monat == "8" or monat == 8:
+        return "August"
+    if monat == "9":
+        return "September"
+    if monat == "10":
+        return "Oktober"
+    if monat == "11":
+        return "November"
+    if monat == "12":
+        return "Dezember"
+
 
