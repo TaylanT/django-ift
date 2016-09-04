@@ -39,9 +39,10 @@ class UebersichView(ListView):
         # context['monat'] = heute.strftime("%B")
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
+            context['monat'] = monatsausgabe(monat)
         else:
-            monat = datetime.date.today().month
-        context['monat'] = monatsausgabe(monat)
+            context['monat'] = datetime.date.today().strftime("%B")
+        
 
         monatsliste = []
         for x in range(1, 12):
@@ -58,8 +59,10 @@ class UebersichView(ListView):
 def status(request, *args, **kwargs):
     if(kwargs != {}):
             monat = kwargs['monat']
+            monatsname = monatsausgabe(monat)
     else:
         monat = datetime.date.today().month
+        monatsname = datetime.date.today().strftime("%B")
     monatsliste = []
     for x in range(1, 12):
         zt = ZeitErfassung.objects.filter(user__username=request.user, start__month=x)
@@ -74,7 +77,7 @@ def status(request, *args, **kwargs):
     monat = monatsausgabe(monat)
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
-                                           'monat': monat,
+                                           'monat': monatsname,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
                                            'monatslist' : monatsliste,
                                            })
@@ -87,27 +90,29 @@ def thanks(request):
 def monatsausgabe(monat):
     if monat == "1":
         return "Januar"
-    if monat == "2":
+    elif monat == "2":
         return "Februar"
-    if monat == "3":
+    elif monat == "3":
         return "Maerz"
-    if monat == "4":
+    elif monat == "4":
         return "April"
-    if monat == "5":
+    elif monat == "5":
         return "Mai"
-    if monat == "6":
+    elif monat == "6":
         return "Juni"
-    if monat == "7":
+    elif monat == "7":
         return "Juli"
-    if monat == "8" or monat == 8:
+    elif monat == "8":
         return "August"
-    if monat == "9":
+    elif monat == "9":
         return "September"
-    if monat == "10":
+    elif monat == "10":
         return "Oktober"
-    if monat == "11":
+    elif monat == "11":
         return "November"
-    if monat == "12":
+    elif monat == "12":
         return "Dezember"
+    else:
+        return ""
 
 
