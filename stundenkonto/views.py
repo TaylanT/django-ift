@@ -27,18 +27,23 @@ class UebersichView(ListView):
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
         else:
-            heute = datetime.date.today()
-            monat = heute.month
+            monat = datetime.date.today().month
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=monat).order_by('start')
 
     def get_context_data(self, **kwargs):
         """Erweitererung contexdata."""
+<<<<<<< HEAD
         # heute = datetime.date.today()
+=======
+        heute = datetime.date.today()
+        jahr = heute.year
+>>>>>>> dc4e71e1542f816dad0925800a69f50ce4efdd00
         context = super(UebersichView, self).get_context_data(**kwargs)
         # context['monat'] = heute.strftime("%B")
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
+<<<<<<< HEAD
             context['monat'] = monatsausgabe(monat)
         else:
             context['monat'] = datetime.date.today().strftime("%B")
@@ -75,6 +80,29 @@ def status(request, *args, **kwargs):
     summe = test.berechnen(request, monat)
     ueberhang = test.ueberhang(request, monat)
     monat = monatsausgabe(monat)
+=======
+            monat = int(monat)
+
+            # Neues Datum mit eingebenen Monat geht bestimmt besser ->> #heute.replace(month = monat)
+            datum = datetime.date(jahr, monat, 1)
+            monat = datum.strftime("%B")
+        else:
+            monat =  heute.strftime("%B")
+        # VerfuegbareMonate aus Statusuebersicht des Users
+        monate = StatusUebersicht.objects.values_list('Monat', flat=True).filter(User=self.request.user).order_by('Monat')
+
+        context['monate'] = monate
+        context['monat'] = monat
+        context['jahr'] = heute.year
+        return context
+
+def status(request):
+    """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
+    test = StatusUebersicht()
+    summe = test.berechnen(request)
+    ueberhang = test.ueberhang(request)
+    # summeNeu = summe/ueberhang
+>>>>>>> dc4e71e1542f816dad0925800a69f50ce4efdd00
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monatsname,
