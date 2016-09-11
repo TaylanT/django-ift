@@ -72,11 +72,29 @@ def status(request, *args, **kwargs):
     summe = test.berechnen(request, monat)
     print summe
     ueberhang = test.ueberhang(request, monat)
+    alles=0
+    for x in range(1, 12):
+        
+        aktueller_benutzer = MyUser.objects.get(username=request.user)
+
+        Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
+        ss = test.berechnen(request, x)
+        ab = Vertragsstunden_benutzer - ss
+        if ab != Vertragsstunden_benutzer:
+            alles = alles + ab
+        else:
+            pass
+
+
+
+    print alles
+
     # summeNeu = summe/ueberhang
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat,
-                                           'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
+                                           'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
+                                           'gesamtstatus' : alles
                                            })
 
 
