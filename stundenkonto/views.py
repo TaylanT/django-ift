@@ -16,7 +16,7 @@ locale.setlocale(locale.LC_ALL, 'de_DE')
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
 
-# Create your views here.
+# Class based View
 class UebersichView(ListView):
     """Liste fuer Uebersicht."""
 
@@ -56,15 +56,26 @@ class UebersichView(ListView):
         return context
 
 
-def status(request):
+# Funktions-based view
+def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
+    print 'bin drinne'
+    if (kwargs !={}):
+
+        for key in kwargs:
+            monat = kwargs[key]
+    else:
+        monat = datetime.date.today().month
+
+    print monat
     test = StatusUebersicht()
-    summe = test.berechnen(request)
-    ueberhang = test.ueberhang(request)
+    summe = test.berechnen(request, monat)
+    print summe
+    ueberhang = test.ueberhang(request, monat)
     # summeNeu = summe/ueberhang
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
-                                           'monat': StatusUebersicht().get_aktuellermonat(),
+                                           'monat': monat,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden
                                            })
 

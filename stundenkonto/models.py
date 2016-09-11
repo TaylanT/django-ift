@@ -36,10 +36,11 @@ class StatusUebersicht(models.Model):
 
 
 
-    def berechnen(self, request):
+    def berechnen(self, request, monat):
         """Summiert stundenanzahl."""
         heute = datetime.date.today()
-        aktueller_monat = heute.month
+        aktueller_monat = monat
+        #print monat
         # aktueller_monat= 6
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
@@ -63,16 +64,16 @@ class StatusUebersicht(models.Model):
             )
         return zeit_stunden
 
-    def ueberhang(self, request):
+    def ueberhang(self, request, monat):
 
         """Berechnung des Stundenueberhangs aus Vormonat."""
         # aktueller_monat= 6
         heute = datetime.date.today()
-        aktueller_monat = heute.month
+        aktueller_monat = monat
         aktueller_benutzer = MyUser.objects.get(username=request.user)
         Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
 
-        zeit_stunden = self.berechnen(request)
+        zeit_stunden = self.berechnen(request, monat)
 
         t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
         t.Ueberhang = Vertragsstunden_benutzer-zeit_stunden 
