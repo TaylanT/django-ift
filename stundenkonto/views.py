@@ -10,8 +10,8 @@ import calendar
 
 
 
-locale.setlocale(locale.LC_ALL, 'de_DE')
-# locale.setlocale(locale.LC_ALL, 'deu_deu')
+# locale.setlocale(locale.LC_ALL, 'de_DE')
+locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
@@ -44,15 +44,20 @@ class UebersichView(ListView):
             monat = datetime.date.today().month
         context['monat'] = monat
 
-        monatsliste = []
+        versuch = {}
+        namensliste = []
         for x in range(1, 12):
             zt = ZeitErfassung.objects.filter(user__username=self.request.user,
                                               start__month=x)
             if zt.count() > 0:
-                monatsliste.append(x)
+                # month = datetime.date(1900, x, 1).strftime('%B')
+                versuch[x]=datetime.date(1900, x, 1).strftime('%B')
+                
+                
             else:
                 pass
-        context['monatslist'] = monatsliste
+        context['monatslist'] = versuch
+        
         return context
 
 
@@ -60,10 +65,11 @@ class UebersichView(ListView):
 def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
     print 'bin drinne'
-    if (kwargs !={}):
+    if (kwargs != {}):
 
         for key in kwargs:
             monat = kwargs[key]
+            print monat
     else:
         monat = datetime.date.today().month
 
@@ -82,6 +88,7 @@ def status(request, *args, **kwargs):
         
         ss = test.berechnen(request, x)
         ab = Vertragsstunden_benutzer - ss
+        # hier verbesserung weil es kann auch sien dass ein ganzer kompletter Monat nicht gearebeitet worden ist. lieber ueber vertragsdauer?
         if ab != Vertragsstunden_benutzer:
             alles = alles + ab
         else:
@@ -90,11 +97,17 @@ def status(request, *args, **kwargs):
     alles=alles+initstunden
 
     print alles
+    # namens darstellung des Monats
+    
+    monat=int(monat)
+    monat_name = datetime.date(1900, monat, 1).strftime('%B')
+
+    print monat_name
 
     # summeNeu = summe/ueberhang
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
-                                           'monat': monat,
+                                           'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
                                            'gesamtstatus' : alles
                                            })

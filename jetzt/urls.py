@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 
 from django.contrib import admin
 # from registration.backends.simple.views import RegistrationView
-from login.views import EigeneRegistration, login
+from login.views import EigeneRegistration, login, home
 from stundenkonto.views import UebersichView, status, thanks
 from login.forms import MyCustomUserForm
 
@@ -42,7 +42,7 @@ urlpatterns = [
         ),
         name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^$', 'login.views.home', name="home"),
+    url(r'^$', home, name="home"),
     url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^stundenkonto/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^status/$', status, name="status"),
@@ -57,6 +57,7 @@ urlpatterns = [
     url(r'zeiterfassung/delete/(?P<pk>[0-9]+)/$',
         login_required(EntferneEintrag.as_view()),
         name='zeit-delete')
+
 
 
 ]
