@@ -73,11 +73,13 @@ def status(request, *args, **kwargs):
     print summe
     ueberhang = test.ueberhang(request, monat)
     alles=0
+    aktueller_benutzer = MyUser.objects.get(username=request.user)
+
+    Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
+    initstunden = aktueller_benutzer.Initstunden
     for x in range(1, 12):
         
-        aktueller_benutzer = MyUser.objects.get(username=request.user)
-
-        Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
+        
         ss = test.berechnen(request, x)
         ab = Vertragsstunden_benutzer - ss
         if ab != Vertragsstunden_benutzer:
@@ -85,7 +87,7 @@ def status(request, *args, **kwargs):
         else:
             pass
 
-
+    alles=alles+initstunden
 
     print alles
 
