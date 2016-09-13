@@ -2,23 +2,29 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class='col-md-6'>
-<div class="container">
+<div class="col-md-2" style="margin-top: 70px;">
+  {% for key, values in monatslist.items%}
+  <a href ="/status/{{key}}">
+    <button type="button" class="btn btn-default" aria-label="monat" style="margin-top: 5px;">{{values}}</button>
+  </a> 
+  <br>
+  {% endfor %}
+ </div>
 	
-
-		<h2>  Status</h2>
-		<table class="table table-hover">
-			<tr>
-				<th>Gesamtstunden {{ monat }}</th>
-				<th>Vertragsstunden</th>
-				<th>noch zu leistende Stunden</th>
-			</tr>
-			<tr>
-				<td>{{ summe }}</td>
-				<td>{{ Vertragsstunden }}</td>
-				<td>{{ ueberhang }}</td>
-			</tr>
-		</table>
+<div class="col-md-10">
+	<h2>  Status</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>Gesamtstunden {{ monat }}</th>
+			<th>Vertragsstunden</th>
+			<th>noch zu leistende Stunden</th>
+		</tr>
+		<tr>
+			<td>{{ summe }}</td>
+			<td>{{ Vertragsstunden }}</td>
+			<td>{{ ueberhang }}</td>
+		</tr>
+	</table>
 
 		
 
@@ -43,10 +49,6 @@
 			<b>Du hast {{ ueberstunden }} Überstunden!</b>
 			{% endif %}
  -->
-			<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
-
-			
-
-	</div>
-	</div>
-	{% endblock %}
+	<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
+</div>
+{% endblock %}
