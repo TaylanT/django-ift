@@ -19,6 +19,7 @@ class MyUser(AbstractUser):
     Vertragstunden = models.IntegerField(null=True)
     Vertragsstart = models.DateField(null=True)
     Vertragsende = models.DateField(null=True)
+    Initstunden = models.IntegerField(default=0)
     # first_name = models.CharField(max_length=60, blank=False)
 
 
