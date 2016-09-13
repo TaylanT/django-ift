@@ -36,43 +36,43 @@ class StatusUebersicht(models.Model):
 
 
 
-    def berechnen(self, request):
+    def berechnen(self, request, monat):
         """Summiert stundenanzahl."""
-        heute = datetime.date.today()
-        aktueller_monat = heute.month
+        
+        
         # aktueller_monat= 6
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
-                                 start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
+            start__month=monat).aggregate(test=Sum(F('dt')))
         # wenn vorhanden update
         if zeit['test']:
-        
+
             zeit_stunden = zeit['test'].total_seconds()/3600
             obj, created = StatusUebersicht.objects.get_or_create(
                 User_id=request.user.id,
-                Monat=aktueller_monat,
+                Monat=monat,
                 defaults={'Monatsstunden': zeit_stunden}
-            )
+                )
         # wenn nicht vorhanden initialisieren
-        if not zeit['test']:
+        else:
             zeit_stunden = 0
             # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
             obj, created = StatusUebersicht.objects.get_or_create(
-                User=request.user,
-                Monat=aktueller_monat,
+                User=request.user.id,
+                Monat=monat,
                 defaults={'Monatsstunden': zeit_stunden}
-            )
+                )
         return zeit_stunden
 
-    def ueberhang(self, request):
+    def ueberhang(self, request, monat):
 
         """Berechnung des Stundenueberhangs aus Vormonat."""
         # aktueller_monat= 6
         heute = datetime.date.today()
-        aktueller_monat = heute.month
+        aktueller_monat = monat
         aktueller_benutzer = MyUser.objects.get(username=request.user)
         Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
 
-        zeit_stunden = self.berechnen(request)
+        zeit_stunden = self.berechnen(request,monat)
 
         t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
         t.Ueberhang = Vertragsstunden_benutzer-zeit_stunden 
