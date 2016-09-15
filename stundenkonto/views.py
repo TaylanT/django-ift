@@ -8,23 +8,11 @@ import datetime
 import locale
 import calendar
 
-
-
-<<<<<<< HEAD
-
-
-
-
 # locale.setlocale(locale.LC_ALL, 'de_DE')
 
-# locale.setlocale(locale.LC_ALL, 'deu_deu')
-=======
-#locale.setlocale(locale.LC_ALL, 'de_DE')
->>>>>>> problembranch
 locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
-#locale.setlocale(locale.LC_ALL, 'de_DE@euro')
-
+# locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
 # Class based View
 class UebersichView(ListView):
