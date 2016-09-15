@@ -8,9 +8,9 @@ import datetime
 import locale
 import calendar
 
-# locale.setlocale(locale.LC_ALL, 'de_DE')
+locale.setlocale(locale.LC_ALL, 'de_DE')
 
-locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
+# locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
 # locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
@@ -24,7 +24,7 @@ class UebersichView(ListView):
         """"Angepasste Queryset."""
         if(self.kwargs != {}):
             monat = self.kwargs['monat']
-            print(monat)
+            
         else:
             heute = datetime.date.today()
             monat = heute.month
@@ -43,13 +43,12 @@ class UebersichView(ListView):
         context['monat'] = datetime.date(1900, int(monat), 1).strftime('%B')
 
         versuch = {}
-        namensliste = []
         for x in range(1, 12):
             zt = ZeitErfassung.objects.filter(user__username=self.request.user,
                                               start__month=x)
             if zt.count() > 0:
                 # month = datetime.date(1900, x, 1).strftime('%B')
-                versuch[x]=datetime.date(1900, x, 1).strftime('%B')
+                versuch[x] = datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
         context['monatslist'] = versuch
@@ -60,19 +59,17 @@ class UebersichView(ListView):
 # Funktions-based view
 def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
-    print 'bin drinne'
+    
     if (kwargs != {}):
 
         for key in kwargs:
             monat = kwargs[key]
-            print monat
+            
     else:
         monat = datetime.date.today().month
 
-    print monat
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
-    print summe
     ueberhang = test.ueberhang(request, monat)
     alles = 0
     aktueller_benutzer = MyUser.objects.get(username=request.user)
@@ -91,9 +88,7 @@ def status(request, *args, **kwargs):
 
     alles = alles + initstunden
 
-    print alles
     # namens darstellung des Monats
-    
     monat = int(monat)
     monat_name = datetime.date(1900, monat, 1).strftime('%B')
 
@@ -103,10 +98,9 @@ def status(request, *args, **kwargs):
                                               start__month=x)
             if zt.count() > 0:
                 # month = datetime.date(1900, x, 1).strftime('%B')
-                versuch[x]=datetime.date(1900, x, 1).strftime('%B')
+                versuch[x] = datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
-    print versuch
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,

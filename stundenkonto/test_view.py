@@ -12,7 +12,7 @@ class UebersichViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = MyUser.objects.create_user('john', 'lennon@thebeatles.com', 
+        self.user = MyUser.objects.create_user('john', 'lennon@thebeatles.com',
                                                'johnpassword',
                                                Vertragstunden=30,
                                                Initstunden=100)

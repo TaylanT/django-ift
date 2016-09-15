@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 
 from django.contrib import admin
 # from registration.backends.simple.views import RegistrationView
-from login.views import EigeneRegistration, login, home
+from login.views import EigeneRegistration, home
 from stundenkonto.views import UebersichView, status, thanks
 from login.forms import MyCustomUserForm
 
