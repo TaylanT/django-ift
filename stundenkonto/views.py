@@ -74,28 +74,27 @@ def status(request, *args, **kwargs):
     summe = test.berechnen(request, monat)
     print summe
     ueberhang = test.ueberhang(request, monat)
-    alles=0
+    alles = 0
     aktueller_benutzer = MyUser.objects.get(username=request.user)
 
-    Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
+    vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
     initstunden = aktueller_benutzer.Initstunden
     for x in range(1, 12):
-        
-        
+
         ss = test.berechnen(request, x)
-        ab = Vertragsstunden_benutzer - ss
+        ab = vertragsstunden_benutzer - ss
         # hier verbesserung weil es kann auch sien dass ein ganzer kompletter Monat nicht gearebeitet worden ist. lieber ueber vertragsdauer?
-        if ab != Vertragsstunden_benutzer:
+        if ab != vertragsstunden_benutzer:
             alles = alles + ab
         else:
             pass
 
-    alles=alles+initstunden
+    alles = alles + initstunden
 
     print alles
     # namens darstellung des Monats
     
-    monat=int(monat)
+    monat = int(monat)
     monat_name = datetime.date(1900, monat, 1).strftime('%B')
 
     versuch = {}
@@ -112,7 +111,7 @@ def status(request, *args, **kwargs):
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
-                                           'gesamtstatus' : alles,
+                                           'gesamtstatus': alles,
                                            'monatslist': versuch
                                            })
 
