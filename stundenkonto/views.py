@@ -10,7 +10,11 @@ import calendar
 
 
 
+
 locale.setlocale(locale.LC_ALL, 'de_DE')
+
+# locale.setlocale(locale.LC_ALL, 'deu_deu')
+
 # locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
@@ -42,7 +46,7 @@ class UebersichView(ListView):
             monat = self.kwargs['monat']
         else:
             monat = datetime.date.today().month
-        context['monat'] = monat
+        context['monat'] = datetime.date(1900, int(monat), 1).strftime('%B')
 
         versuch = {}
         namensliste = []
@@ -52,8 +56,6 @@ class UebersichView(ListView):
             if zt.count() > 0:
                 # month = datetime.date(1900, x, 1).strftime('%B')
                 versuch[x]=datetime.date(1900, x, 1).strftime('%B')
-                
-                
             else:
                 pass
         context['monatslist'] = versuch
@@ -102,14 +104,22 @@ def status(request, *args, **kwargs):
     monat=int(monat)
     monat_name = datetime.date(1900, monat, 1).strftime('%B')
 
-    print monat_name
-
-    # summeNeu = summe/ueberhang
+    versuch = {}
+    for x in range(1, 12):
+            zt = ZeitErfassung.objects.filter(user__username=request.user,
+                                              start__month=x)
+            if zt.count() > 0:
+                # month = datetime.date(1900, x, 1).strftime('%B')
+                versuch[x]=datetime.date(1900, x, 1).strftime('%B')
+            else:
+                pass
+    print versuch
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
-                                           'gesamtstatus' : alles
+                                           'gesamtstatus' : alles,
+                                           'monatslist': versuch
                                            })
 
 
