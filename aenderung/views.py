@@ -1,5 +1,6 @@
 from django.views.generic.edit import UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
+import datetime
 from django.shortcuts import HttpResponseRedirect
 from login.models import ZeitErfassung
 
@@ -25,7 +26,7 @@ class ZeitUpdate(UpdateView):
 
 class EntferneEintrag(DeleteView):
     model = ZeitErfassung
-    success_url = reverse_lazy('stundenkonto')
+    success_url = reverse_lazy('stundenkonto', kwargs={'monat':datetime.date.today().month})
 
     def get_queryset(self):
         query_set = ZeitErfassung.objects.filter(user=self.request.user)
