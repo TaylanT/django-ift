@@ -4,7 +4,7 @@ from stundenkonto.models import StatusUebersicht
 
 class StatusUebersichtAdmin(admin.ModelAdmin):
     list_filter = ('User',)
-    list_display = ('User', 'Monat')
+    list_display = ('User', 'monat_anzeige', 'Ueberhang')
 
 
 admin.site.register(StatusUebersicht, StatusUebersichtAdmin)

@@ -22,13 +22,17 @@ from login.models import MyUser
 class StatusUebersicht(models.Model):
     """Ueberblick uber aktuellen stundenstatus nach MTC."""
     Monatsstunden = models.FloatField(default=0)
-    User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,
-    )
+    User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE)
     Ueberhang = models.FloatField(default=0)
     Monat = models.IntegerField()
     
     def __str__(self): # Python 3.3 is __str__
         return '%s' %(self.User)
+
+
+    def monat_anzeige(self):
+        datum = datetime.datetime(2016, self.Monat, 1)
+        return datum.strftime('%B')
 
     def get_aktuellermonat(self):
         heute = datetime.date.today()
@@ -38,19 +42,17 @@ class StatusUebersicht(models.Model):
 
     def berechnen(self, request, monat):
         """Summiert stundenanzahl."""
-        heute = datetime.date.today()
-        aktueller_monat = monat
-        #print monat
-        # aktueller_monat= 6
+        
+        
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
-                                 start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
+                                 start__month=monat).aggregate(test=Sum(F('dt')))
         # wenn vorhanden update
         if zeit['test']:
         
-            zeit_stunden = zeit['test'].total_seconds()/3600
+            zeit_stunden = zeit['test'].total_seconds() / 3600
             obj, created = StatusUebersicht.objects.get_or_create(
                 User_id=request.user.id,
-                Monat=aktueller_monat,
+                Monat=monat,
                 defaults={'Monatsstunden': zeit_stunden}
             )
         # wenn nicht vorhanden initialisieren
@@ -59,29 +61,12 @@ class StatusUebersicht(models.Model):
             # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
             obj, created = StatusUebersicht.objects.get_or_create(
                 User=request.user,
-                Monat=aktueller_monat,
+                Monat=monat,
                 defaults={'Monatsstunden': zeit_stunden}
             )
         return zeit_stunden
 
-    def ueberhang(self, request, monat):
-
-        """Berechnung des Stundenueberhangs aus Vormonat."""
-        # aktueller_monat= 6
-        heute = datetime.date.today()
-        aktueller_monat = monat
-        aktueller_benutzer = MyUser.objects.get(username=request.user)
-        Vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
-
-        zeit_stunden = self.berechnen(request, monat)
-
-        t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
-        t.Ueberhang = Vertragsstunden_benutzer-zeit_stunden 
-        t.Monatsstunden = zeit_stunden
-        t.User = request.user
-        t.save()
-        return t.Ueberhang
-
+    
 """To Dos:
 -Jahr mit hinzufügen
 -buttons 
