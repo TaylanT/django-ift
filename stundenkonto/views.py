@@ -31,17 +31,6 @@ class UebersichView(ListView):
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=monat).order_by('start')
 
-    def get_context_data(self, **kwargs):
-        """Erweitererung contexdata."""
-        # heute = datetime.date.today()
-        context = super(UebersichView, self).get_context_data(**kwargs)
-        # context['monat'] = heute.strftime("%B")
-        monat = datetime.date.today().month
-        context['monat'] = datetime.date(1900, int(monat), 1).strftime('%B')
-
-        return context
-
-
 # Funktions-based view
 def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
@@ -51,6 +40,7 @@ def status(request, *args, **kwargs):
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
     aktueller_benutzer = MyUser.objects.get(username=request.user)
+    print aktueller_benutzer
 
     alles = ZeitErfassung.objects.filter(user__username=request.user,
                                         start__lt=datetime.datetime(2016, monat+1,1)).aggregate(test=Sum(F('dt')))

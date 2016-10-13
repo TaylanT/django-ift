@@ -27,11 +27,11 @@ class UebersichViewTest(TestCase):
         response = self.client.get(reverse('stundenkonto', kwargs={'monat': 7}))
         self.assertEqual(response.status_code, 200)
 
-    def test_status_view(self):
-        self.client.login(username='john',
-                          password='johnpassword')
-        response = self.client.get(reverse('status', kwargs={'monat': 7}))
-        self.assertEqual(response.status_code, 200)
+    # def test_status_view(self):
+    #     self.client.login(username='john',
+    #                       password='johnpassword')
+    #     response = self.client.get(reverse('status', kwargs={'monat': 7}))
+    #     self.assertEqual(response.status_code, 200)
     def test_initstunden(self):
         pass
 

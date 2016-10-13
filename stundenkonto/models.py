@@ -7,17 +7,6 @@ from login.models import ZeitErfassung
 from django.db.models import F, FloatField, Sum
 from login.models import MyUser
 
-# Create your models here.
-    
-
-# class VertragsUebersicht(models.Model):
-
-#     Vertragsstunden = models.CharField(max_length=120)
-#     Vertragsstart = models.DateField(null=True)
-#     Vertragsende = models.DateField(null=True)
-#     # Ueberhang = models.FloatField(default=10.0)
-# # class OffeneStunden(models.Model):
-
 
 class StatusUebersicht(models.Model):
     """Ueberblick uber aktuellen stundenstatus nach MTC."""
@@ -42,12 +31,14 @@ class StatusUebersicht(models.Model):
 
     def berechnen(self, request, monat):
         """Summiert stundenanzahl."""
-        
-        
+       
+
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
-                                 start__month=monat).aggregate(test=Sum(F('dt')))
+                                            start__month=monat).aggregate(test=Sum(F('dt')))
+        
         # wenn vorhanden update
         if zeit['test']:
+            print 'vorhanden'
         
             zeit_stunden = zeit['test'].total_seconds() / 3600
             obj, created = StatusUebersicht.objects.get_or_create(
@@ -57,6 +48,7 @@ class StatusUebersicht(models.Model):
             )
         # wenn nicht vorhanden initialisieren
         if not zeit['test']:
+            print 'nicht vorhanden'
             zeit_stunden = 0
             # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
             obj, created = StatusUebersicht.objects.get_or_create(
@@ -65,6 +57,7 @@ class StatusUebersicht(models.Model):
                 defaults={'Monatsstunden': zeit_stunden}
             )
         return zeit_stunden
+
 
     
 """To Dos:
