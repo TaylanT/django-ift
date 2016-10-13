@@ -26,29 +26,7 @@
 		</tr>
 	</table>
 
-		
-
-			<!-- <br>
-
-			<div class="progress">
-				{% if prozent > 100 %}
-				<div class="progress-bar" role="progressbar" style="width: 100%;">
-					100%
-				</div>
-				{% else %}
-				<div class="progress-bar" role="progressbar" style="width: {{prozent}}%;">
-					{{prozent}}%
-				</div>
-				{% endif %}
-			</div>
-			
-			{% if prozent == 100 %}
-			<b>Anzahl an Stunden im Monat erreicht!</b>
-
-			{% elif prozent > 100 %}
-			<b>Du hast {{ ueberstunden }} Überstunden!</b>
-			{% endif %}
- -->
-	<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
+	<p>Du hast einen Status von {{ gesamtstatus}} Stunden</p>
+	
 </div>
 {% endblock %}

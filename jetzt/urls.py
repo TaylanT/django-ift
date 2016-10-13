@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 
 from django.contrib import admin
 # from registration.backends.simple.views import RegistrationView
-from login.views import EigeneRegistration, login, home
+from login.views import EigeneRegistration, home
 from stundenkonto.views import UebersichView, status, thanks
 from login.forms import MyCustomUserForm
 
@@ -43,9 +43,9 @@ urlpatterns = [
         name='registration_register'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^$', home, name="home"),
-    url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
+    
     url(r'^stundenkonto/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
-    url(r'^status/$', status, name="status"),
+    
     url(r'^status/(?P<monat>[0-9]+)/$', status, name="status"),
     url(r'^thanks/$', thanks, name="thanks"), 
     # url(r'^profile/$', login.views.profilesi,name="profile"),
