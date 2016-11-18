@@ -7,6 +7,7 @@ from stundenkonto.models import StatusUebersicht
 import datetime
 import locale
 import calendar
+import operator
 
 
 
@@ -54,8 +55,10 @@ class UebersichView(ListView):
                 versuch[x]=datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
-        context['monatslist'] = versuch
         
+        sorted_versuch = sorted(versuch.items(), key=operator.itemgetter(0))
+        context['monatslist'] = sorted_versuch
+
         return context
 
 
@@ -109,13 +112,13 @@ def status(request, *args, **kwargs):
                 versuch[x]=datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
-    print versuch
+    sorted_versuch = sorted(versuch.items(), key=operator.itemgetter(0))
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
                                            'gesamtstatus' : alles,
-                                           'monatslist': versuch
+                                           'monatslist': sorted_versuch
                                            })
 
 

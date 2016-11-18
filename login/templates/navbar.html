@@ -45,7 +45,7 @@
           {% if request.path == "/stundenkonto/" %}
           
           <ul class="nav nav-second-level">
-            {% for key, values in monatslist.items %}
+            {% for key, values in monatslist %}
             <li>
               <a href ="/stundenkonto/{{key}}">{{values}}</a>
             </li>
@@ -59,7 +59,7 @@
           {% if request.path == "/status/" %}
           
           <ul class="nav nav-second-level">
-            {% for key, values in monatslist.items %}
+            {% for key, values in monatslist %}
             <li>
               <a href ="/status/{{key}}">{{values}}</a>
             </li>
