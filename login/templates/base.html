@@ -18,14 +18,45 @@
   <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <script src="/static/bower_components/jquery-circle/dist/circle-progress.js"></script>
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
 </head>
 <body>
   {% include 'navbar.html' %}
-  <div class="container">
-    <div class='row'>
-      {% block content %}
-      {% endblock %}
+  <div id="wrapper">
+
+    <!-- Page Content -->
+    <div id="page-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          
+          <!-- <h1 class="page-header">Blank</h1> -->
+          {% block content %}
+          {% endblock %}
+          
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
     </div>
-  </div> <!-- /container --> 
+    <!-- /#page-wrapper -->
+  </div>
+  <!-- /#wrapper -->
 </body>
 </html>
+
+<!-- jQuery -->
+<script src="/static/vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/static/dist/js/sb-admin-2.js"></script>
+

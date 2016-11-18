@@ -2,15 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="col-md-2" style="margin-top: 70px;">
-  {% for key, values in monatslist.items%}
-  <a href ="/status/{{key}}">
-    <button type="button" class="btn btn-default" aria-label="monat" style="margin-top: 5px;">{{values}}</button>
-  </a> 
-  <br>
-  {% endfor %}
- </div>
-	
+
 <div class="col-md-10">
 	<h2>  Status</h2>
 	<table class="table table-hover">
@@ -26,7 +18,7 @@
 		</tr>
 	</table>
 
-		
+	
 
 			<!-- <br>
 
@@ -48,7 +40,7 @@
 			{% elif prozent > 100 %}
 			<b>Du hast {{ ueberstunden }} Überstunden!</b>
 			{% endif %}
- -->
-	<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
-</div>
-{% endblock %}
+		-->
+		<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
+	</div>
+	{% endblock %}

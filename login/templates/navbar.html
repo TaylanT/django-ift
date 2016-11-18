@@ -1,24 +1,21 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="ift_logo" src="/static/images/ift_logo_orginal.jpg" height="25">
-      </a>
-    </div>
-    <ul class="nav navbar-nav navbar-left">
-     <li><a href="{% url 'home' %}">Home</a></li>
-   </ul>
-   <ul class="nav navbar-nav navbar-right">
-     
-    {% if request.user.is_authenticated %}
-    <li><a href="{% url 'status' %}">Status</a></li>
-    <li><a href="{% url 'stundenkonto' %}">Stundenkonto</a></li>
-    <li><a href="{% url 'auth_logout' %}">Logout</a></li>
-    {% else %}
-    <li><a href="{% url 'registration_register' %}">Registrierung</a></li>
-    {% endif %}
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <img alt="ift_logo" src="/static/images/ift_logo_orginal.jpg" height="25">
+    </a>
+  </div>
+  <!-- /.navbar-header -->
+
+  <ul class="nav navbar-top-links navbar-right" style="margin-right: 1mm">
     
-    {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+    {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path and not "/accounts/register" in request.get_full_path %}
     <form class='navbar-form navbar-right' method='POST' action='{% url "auth_login" %}'>{% csrf_token %}
       <div class='form-group'>
         <div class="input-group">
@@ -34,6 +31,50 @@
       </div>
       <button type='submit' class='btn btn-primary'>Login</button>
     </form>
-    {% endif %}
+    {% endif %}   
   </ul>
+  <!-- /.navbar-top-links -->
+
+  <div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+      <ul class="nav" id="side-menu">                       
+        {% if request.user.is_authenticated %}
+        
+        <li>
+          <a href="{% url 'stundenkonto' %}">Stundenkonto<span class="fa arrow"></span></a>
+          {% if request.path == "/stundenkonto/" %}
+          
+          <ul class="nav nav-second-level">
+            {% for key, values in monatslist.items %}
+            <li>
+              <a href ="/stundenkonto/{{key}}">{{values}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <!-- /.nav-second-level -->
+        </li>
+        <li>
+          <a href="{% url 'status' %}">Status<span class="fa arrow"></span></a>
+          {% if request.path == "/status/" %}
+          
+          <ul class="nav nav-second-level">
+            {% for key, values in monatslist.items %}
+            <li>
+              <a href ="/status/{{key}}">{{values}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <!-- /.nav-second-level -->
+        </li>
+        <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'registration_register' %}">Registrierung</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+  </div>
+  <!-- /.navbar-static-side -->
 </nav>

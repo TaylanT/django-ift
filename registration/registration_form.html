@@ -3,31 +3,46 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" >
+      <div class="login-panel panel panel-default" style="margin-top:10mm">
+        <div class="panel-heading">
+          <h3 class="panel-title">Registrierung</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form" method="post" action=".">
+            <fieldset>
 
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form|crispy}}
+              {% csrf_token %} 
+              {{ form|crispy}}
 
-  <input class='btn btn-primary' type='submit' value='Speichern' />
-</form>
+              <input class='btn btn-primary' type='submit' value='Speichern' />
 
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <script type="text/javascript">
-    $(function () {
-        $('#id_Vertragsstart').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY',
-                                              
-                                              
+  $(function () {
+    $('#id_Vertragsstart').datetimepicker({locale:moment.locale('de'),
+      sideBySide:true,
+      format: 'DD.MM.YYYY',
+      
+      
     });
-        $('#id_Vertragsende').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY',
-                                              useCurrent:true,
-                                              
-                                              
+    $('#id_Vertragsende').datetimepicker({locale:moment.locale('de'),
+      sideBySide:true,
+      format: 'DD.MM.YYYY',
+      useCurrent:true,
+      
+      
 
     });
-    });
+  });
 
 </script>  
 

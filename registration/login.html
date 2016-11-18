@@ -3,14 +3,31 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %} 
-  {{ form|crispy}}
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="login-panel panel panel-default" style="margin-top:10mm">
+				<div class="panel-heading">
+					<h3 class="panel-title">Login</h3>
+				</div>
+				<div class="panel-body">
+					<form role="form" method="post" action=".">
+						<fieldset>
 
-  <input type="submit" class='btn btn-primary' value="{% trans 'Login' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
-<br>
-<p>{% trans "Passwort vergessen" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Sie sind kein Benutzer" %}? <a href="{% url 'registration_register' %}">{% trans "Registrierung" %}</a>!</p>
+							{% csrf_token %} 
+							{{ form|crispy}}
+
+							<input type="submit" class="btn btn-lg btn-block" value="{% trans 'Login' %}" />
+							<input type="hidden" name="next" value="{{ next }}" />
+
+							<br>
+							<p>{% trans "Passwort vergessen" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+							<p>{% trans "Sie sind kein Benutzer" %}? <a href="{% url 'registration_register' %}">{% trans "Registrierung" %}</a>!</p>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
