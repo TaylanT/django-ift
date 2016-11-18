@@ -2,26 +2,36 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
-{% if user.is_authenticated %}
-<div class='col-md-6 col-md-offset-3'>
- <h1> Hallo {{ request.user.username }}, du bist eingeloggt!</h1>
-
-
-
- <form method='POST' action=''>{% csrf_token %}
-  {{ form|crispy }}
-  <input class='btn btn-primary' type='submit' value='Speichern' />
-</form>
-</div>
-{% else%}
+{% if not user.is_authenticated %}
 <div class='col-md-12'>
   <h1>Deine Hiwi Stunden werden nun Online erfasst. Bitte melde dich an oder registriere dich um fortzufahren. </h1>
-
-  {% endif %}
-
-
 </div>
+{% else%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2" >
+      <div class="login-panel panel panel-default" style="margin-top:10mm">
+        <div class="panel-heading">
+          <h3 class="panel-title">Hallo {{ request.user.username }}, du bist eingeloggt!</h3>
+        </div>
+        <div class="panel-body">
+          <form role="form" method="post" action=".">
+            <fieldset>
+
+              {% csrf_token %} 
+              {{ form|crispy}}
+
+              <input class='btn btn-primary' type='submit' value='Speichern' />
+
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}
 
 
 <script type="text/javascript">
