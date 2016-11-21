@@ -6,6 +6,7 @@ from django.db.models import F, Sum
 from login.models import ZeitErfassung, MyUser
 from stundenkonto.models import StatusUebersicht
 import datetime
+import pytz
 import locale
 
 locale.setlocale(locale.LC_ALL, 'de_DE')
@@ -40,10 +41,8 @@ def status(request, *args, **kwargs):
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
     aktueller_benutzer = MyUser.objects.get(username=request.user)
-    print aktueller_benutzer
-
     alles = ZeitErfassung.objects.filter(user__username=request.user,
-                                        start__lt=datetime.datetime(2016, monat+1,1)).aggregate(test=Sum(F('dt')))
+                                         start__lt=datetime.datetime(2016, monat+1,1).replace(tzinfo=pytz.UTC)).aggregate(test=Sum(F('dt')))
     # test = ZeitErfassung.objects.filter(user__username='taylan',)
 
     # condition falls noch kein Eintrag vorhanden ist
@@ -51,7 +50,7 @@ def status(request, *args, **kwargs):
         alles = alles['test'].total_seconds() / 3600
         vs = monat - aktueller_benutzer.Vertragsstart.month + 1
         # mal minus 1 weil behindert
-        suml = (alles - vs * aktueller_benutzer.Vertragstunden)*(-1)
+        suml = (alles - vs * aktueller_benutzer.Vertragstunden) * (-1)
     else:
         suml = 0
 

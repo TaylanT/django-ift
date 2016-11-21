@@ -31,15 +31,13 @@ class StatusUebersicht(models.Model):
 
     def berechnen(self, request, monat):
         """Summiert stundenanzahl."""
-       
-
+        
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                             start__month=monat).aggregate(test=Sum(F('dt')))
         
         # wenn vorhanden update
         if zeit['test']:
-            print 'vorhanden'
-        
+
             zeit_stunden = zeit['test'].total_seconds() / 3600
             obj, created = StatusUebersicht.objects.get_or_create(
                 User_id=request.user.id,
@@ -48,7 +46,6 @@ class StatusUebersicht(models.Model):
             )
         # wenn nicht vorhanden initialisieren
         if not zeit['test']:
-            print 'nicht vorhanden'
             zeit_stunden = 0
             # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
             obj, created = StatusUebersicht.objects.get_or_create(

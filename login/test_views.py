@@ -18,7 +18,7 @@ class home(TestCase):
         c.login(username='john', password='johnpassword')
         form_data = {'beschreibung': 'something',
                      'start': '01.01.2016 11:00',
-                     'ende': '01.01.2016 12:00',
+                     'ende': '01.01.2016 19:00',
                      'betreuer': Betreuer.objects.get(pk=1).pk}
         response = c.post('/', data=form_data)
         self.assertRedirects(response, '/thanks/')
