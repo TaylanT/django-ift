@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import ZeitErfassung
 from .forms import ZeitForm
 from datetime import datetime
-from registration.backends.simple.views import RegistrationView
+from registration.backends.hmac.views import RegistrationView
 from stundenkonto.models import StatusUebersicht
 
 # Create your views here.
@@ -15,7 +15,7 @@ class EigeneRegistration(RegistrationView):
     def get_success_url(self, user):
         o = StatusUebersicht(User=user, Monat=datetime.now().month)
         o.save()
-        return '/'
+        return 'registration_complete'
 
 def login(request):
     # if this is a POST request we need to process the form data
