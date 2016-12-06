@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'stundenkonto',
     'aenderung',
     'daterange_filter',
+    'password_reset',
 ]
 
 MIDDLEWARE_CLASSES = [
