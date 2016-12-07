@@ -17,6 +17,6 @@ class MyCustomUserForm(RegistrationForm):
     class Meta:
         model = MyUser
         fields = ['first_name', 'last_name', 'username', 'Vertragstunden',
-                  'Vertragsstart', 'Vertragsende', 'email']
+                  'Vertragsstart', 'Vertragsende']
         REQUIRED_FIELDS = ['first_name']
         

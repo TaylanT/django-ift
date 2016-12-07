@@ -30,7 +30,7 @@ urlpatterns = [
 
 
     url(r'^admin/', admin.site.urls),
-    url(r'^recover/', include('password_reset.urls')),
+    
     # url(r'^login/$','login.views.login',name='login'),
     # url(r'^accounts/register/$',
     #     RegistrationView.as_view(

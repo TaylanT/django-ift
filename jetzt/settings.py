@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'stundenkonto',
     'aenderung',
     'daterange_filter',
-    'password_reset',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -140,7 +139,7 @@ AUTH_USER_MODEL = 'login.MyUser'
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'phoneumi@gmail.com'
