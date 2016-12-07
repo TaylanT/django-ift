@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'registration',
     'login',
     'stundenkonto',
     'aenderung',
@@ -137,3 +136,13 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 LOGIN_REDIRECT_URL='/'
 AUTH_USER_MODEL = 'login.MyUser'
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'phoneumi@gmail.com'
+EMAIL_HOST_PASSWORD = 'Thermo1234'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

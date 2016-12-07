@@ -30,6 +30,7 @@ urlpatterns = [
 
 
     url(r'^admin/', admin.site.urls),
+    
     # url(r'^login/$','login.views.login',name='login'),
     # url(r'^accounts/register/$',
     #     RegistrationView.as_view(
@@ -41,7 +42,7 @@ urlpatterns = [
             form_class=MyCustomUserForm
         ),
         name='registration_register'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^$', home, name="home"),
     url(r'^stundenkonto/$', UebersichView.as_view(), name="stundenkonto"),
     url(r'^stundenkonto/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
