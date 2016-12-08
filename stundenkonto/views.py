@@ -7,12 +7,13 @@ from stundenkonto.models import StatusUebersicht
 import datetime
 import locale
 import calendar
+from dateutil import relativedelta
 
-locale.setlocale(locale.LC_ALL, 'de_DE')
+#locale.setlocale(locale.LC_ALL, 'de_DE')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
-#locale.setlocale(locale.LC_ALL, 'deu_deu')
+locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
@@ -73,18 +74,28 @@ def status(request, *args, **kwargs):
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
     ueberhang = test.ueberhang(request, monat)
-    alles = 0
     aktueller_benutzer = MyUser.objects.get(username=request.user)
 
     vertragsstunden_benutzer = aktueller_benutzer.Vertragstunden
     initstunden = aktueller_benutzer.Initstunden
-    for x in range(1, 12):
+
+    # Differenz aus Vertragsdauer --> Vertragsmonate 
+    # Monate werden mit Vertragsstunden multiplizert --> Gesamststunden die zu arbeiten sind (negative Zahl um abzuarbeiten)
+    # Schleife ueber gearbeitete Stunden, wird auf Gesamtstunden addiert
+    print(aktueller_benutzer.Vertragsende - aktueller_benutzer.Vertragsstart)   
+    r = relativedelta.relativedelta(aktueller_benutzer.Vertragsende, aktueller_benutzer.Vertragsstart)
+    monateVertragsdauer = r.months
+    print monateVertragsdauer * vertragsstunden_benutzer
+    alles = -(monateVertragsdauer * vertragsstunden_benutzer)
+
+    for x in range(1, 13):
 
         ss = test.berechnen(request, x)
         ab = vertragsstunden_benutzer - ss
+
         # hier verbesserung weil es kann auch sien dass ein ganzer kompletter Monat nicht gearebeitet worden ist. lieber ueber vertragsdauer?
         if ab != vertragsstunden_benutzer:
-            alles = alles + ab
+            alles = alles + ss
         else:
             pass
 
