@@ -49,6 +49,8 @@
 			<b>Du hast {{ ueberstunden }} Überstunden!</b>
 			{% endif %}
  -->
-	<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
+	<p>Du hast {{gearbeiteteStunden}} von {{gesamtstatus}} Gesamtstunden erreicht!</p>
+	<p>Soll-Gesamt: {{gesamtstatus}} Stunden</p>
+	<p>Ist-Gesamt: {{gearbeiteteStunden}} Stunden</p>
 </div>
 {% endblock %}

@@ -46,7 +46,7 @@ class UebersichView(ListView):
         context['monat'] = datetime.date(1900, int(monat), 1).strftime('%B')
 
         versuch = {}
-        for x in range(1, 12):
+        for x in range(1, 13):
             zt = ZeitErfassung.objects.filter(user__username=self.request.user,
                                               start__month=x)
             if zt.count() > 0:
@@ -82,31 +82,35 @@ def status(request, *args, **kwargs):
     # Differenz aus Vertragsdauer --> Vertragsmonate 
     # Monate werden mit Vertragsstunden multiplizert --> Gesamststunden die zu arbeiten sind (negative Zahl um abzuarbeiten)
     # Schleife ueber gearbeitete Stunden, wird auf Gesamtstunden addiert
-    print(aktueller_benutzer.Vertragsende - aktueller_benutzer.Vertragsstart)   
+    print(aktueller_benutzer.Vertragsende - aktueller_benutzer.Vertragsstart) 
     r = relativedelta.relativedelta(aktueller_benutzer.Vertragsende, aktueller_benutzer.Vertragsstart)
-    monateVertragsdauer = r.months
-    print monateVertragsdauer * vertragsstunden_benutzer
-    alles = -(monateVertragsdauer * vertragsstunden_benutzer)
+    #funktioniert nicht bei >= einem Jahr Vertragslaufzeit
+    monateVertragsdauer = 0
+    if(r.years >= 1):  
+        for x in range(1,r.years + 1):
+            monateVertragsdauer = monateVertragsdauer + 12
+            
+    monateVertragsdauer = monateVertragsdauer + r.months
+    print monateVertragsdauer, " Monate Vertrag"
+    print monateVertragsdauer * vertragsstunden_benutzer, " stunden zu arbeiten"
+    alles = monateVertragsdauer * vertragsstunden_benutzer
 
+    gearbeiteteStunden = 0
     for x in range(1, 13):
 
         ss = test.berechnen(request, x)
-        ab = vertragsstunden_benutzer - ss
-
-        # hier verbesserung weil es kann auch sien dass ein ganzer kompletter Monat nicht gearebeitet worden ist. lieber ueber vertragsdauer?
-        if ab != vertragsstunden_benutzer:
-            alles = alles + ss
-        else:
-            pass
-
-    alles = alles + initstunden
+        gearbeiteteStunden = gearbeiteteStunden + ss
+        # hier verbesserung weil es kann auch sien dass ein ganzer kompletter Monat nicht gearebeitet worden ist. 
+        #lieber ueber vertragsdauer?
+    print gearbeiteteStunden, " gearbeitete Stunden"
+    gearbeiteteStunden = gearbeiteteStunden + initstunden
 
     # namens darstellung des Monats
     monat = int(monat)
     monat_name = datetime.date(1900, monat, 1).strftime('%B')
 
     versuch = {}
-    for x in range(1, 12):
+    for x in range(1, 13):
             zt = ZeitErfassung.objects.filter(user__username=request.user,
                                               start__month=x)
             if zt.count() > 0:
@@ -119,6 +123,7 @@ def status(request, *args, **kwargs):
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
                                            'gesamtstatus': alles,
+                                           'gearbeiteteStunden': gearbeiteteStunden,
                                            'monatslist': versuch
                                            })
 
