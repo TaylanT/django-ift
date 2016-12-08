@@ -3,32 +3,34 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
+<div class='col-md-8 col-md-offset-2' style="margin-top: 15px">
 <form method="post" action=".">
   {% csrf_token %}
   {{ form|crispy}}
 
   <input class='btn btn-primary' type='submit' value='Speichern' />
 </form>
-
+</div>
 <script type="text/javascript">
     $(function () {
-        $('#id_Vertragsstart').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY',
-                                              
-                                              
+      $('#id_Vertragsstart').datetimepicker({
+        locale:moment.locale('de'),
+        sideBySide:true,
+        format: 'DD.MM.YYYY HH:mm',
+        widgetPositioning: {
+          horizontal: 'auto',
+          vertical: 'bottom'
+        },                                         
+      });
+      $('#id_Vertragsende').datetimepicker({
+        locale:moment.locale('de'),
+        sideBySide:true,
+        format: 'DD.MM.YYYY HH:mm',
+        widgetPositioning: {
+          horizontal: 'auto',
+          vertical: 'bottom'
+        },
+      });
     });
-        $('#id_Vertragsende').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY',
-                                              useCurrent:true,
-                                              
-                                              
-
-    });
-    });
-
-</script>  
-
+</script>
 {% endblock %}

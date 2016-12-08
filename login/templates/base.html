@@ -2,30 +2,29 @@
 {% load crispy_forms_tags %}
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Hiwi Zeiterfassung</title>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Die 3 Meta-Tags oben *müssen* zuerst im head stehen; jeglicher sonstiger head-Inhalt muss *nach* diesen Tags kommen -->
+    <title>Hiwi Zeiterfassung</title>
 
+    <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  </head>
+
+  <body>
+    {% include 'navbar.html' %} 
+
+    {% block content %}
+    {% endblock %}
   
-  <script type="text/javascript" src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
-  <script type="text/javascript" src="/static/bower_components/moment/min/moment.min.js"></script>
-  <script type="text/javascript" src="/static/bower_components/moment/moment-with-locale.js"></script>
-  <script type="text/javascript" src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-  <link rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/static/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-  <script src="/static/bower_components/jquery-circle/dist/circle-progress.js"></script>
-</head>
-<body>
-  {% include 'navbar.html' %}
-  <div class="container">
-    <div class='row'>
-      {% block content %}
-      {% endblock %}
-    </div>
-  </div> <!-- /container --> 
-</body>
+  </body>
 </html>

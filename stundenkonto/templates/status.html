@@ -2,53 +2,37 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="col-md-2" style="margin-top: 70px;">
-  {% for key, values in monatslist.items%}
-  <a href ="/status/{{key}}">
-    <button type="button" class="btn btn-default" aria-label="monat" style="margin-top: 5px;">{{values}}</button>
-  </a> 
-  <br>
-  {% endfor %}
- </div>
-	
-<div class="col-md-10">
-	<h2>  Status</h2>
-	<table class="table table-hover">
-		<tr>
-			<th>Gesamtstunden {{ monat }}</th>
-			<th>Vertragsstunden</th>
-			<th>noch zu leistende Stunden</th>
-		</tr>
-		<tr>
-			<td>{{ summe }}</td>
-			<td>{{ Vertragsstunden }}</td>
-			<td>{{ ueberhang }}</td>
-		</tr>
-	</table>
-
-		
-
-			<!-- <br>
-
-			<div class="progress">
-				{% if prozent > 100 %}
-				<div class="progress-bar" role="progressbar" style="width: 100%;">
-					100%
-				</div>
-				{% else %}
-				<div class="progress-bar" role="progressbar" style="width: {{prozent}}%;">
-					{{prozent}}%
-				</div>
-				{% endif %}
-			</div>
-			
-			{% if prozent == 100 %}
-			<b>Anzahl an Stunden im Monat erreicht!</b>
-
-			{% elif prozent > 100 %}
-			<b>Du hast {{ ueberstunden }} Überstunden!</b>
-			{% endif %}
- -->
-	<p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
-</div>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            {% for key, values in monatslist.items %}
+            <li><a href ="/status/{{key}}">{{values}}</a> 
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h3 class="page-header">Status für {{monat}}</h3>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Gesamtstunden</th>
+                  <th>Vertragsstunden</th>
+                  <th>noch zu leistende Stunden</th>
+               </tr>
+             </thead>
+             <tbody>
+              <tr>
+               <td>{{ summe }}</td>
+               <td>{{ Vertragsstunden }}</td>
+               <td>{{ ueberhang }}</td>
+             </tr>
+           </tbody>
+         </table>
+          </div>
+          <p>Dein Gesamtstundenstatus beträgt {{ gesamtstatus}}</p>
+        </div>
+      </div>
+    </div>
 {% endblock %}
