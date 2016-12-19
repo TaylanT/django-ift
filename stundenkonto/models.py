@@ -88,3 +88,15 @@ class StatusUebersicht(models.Model):
 -view gestalten
 -Datenbank design
 """ 
+class Studenten(models.Model):
+    """Ueberblick uber aktuellen stundenstatus nach MTC."""
+    User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,)
+
+    vertragsstart = models.DateField(null=True)
+    vertragsende = models.DateField(null=True)
+    vertragstunden = models.IntegerField(null=True)
+    sollstunden = models.IntegerField(null=True)
+    iststunden = models.IntegerField(null=True)
+    
+    def __str__(self): # Python 3.3 is __str__
+        return '%s' %(self.User)

@@ -3,11 +3,12 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from login.models import ZeitErfassung, MyUser
-from stundenkonto.models import StatusUebersicht
+from stundenkonto.models import StatusUebersicht, Studenten
 import datetime
 import locale
 import calendar
 from dateutil import relativedelta
+from django.core.exceptions import ObjectDoesNotExist
 
 #locale.setlocale(locale.LC_ALL, 'de_DE')
 
@@ -84,7 +85,7 @@ def status(request, *args, **kwargs):
     # Schleife ueber gearbeitete Stunden, wird auf Gesamtstunden addiert
     print(aktueller_benutzer.Vertragsende - aktueller_benutzer.Vertragsstart) 
     r = relativedelta.relativedelta(aktueller_benutzer.Vertragsende, aktueller_benutzer.Vertragsstart)
-    #funktioniert nicht bei >= einem Jahr Vertragslaufzeit
+
     monateVertragsdauer = 0
     if(r.years >= 1):  
         for x in range(1,r.years + 1):
@@ -92,9 +93,11 @@ def status(request, *args, **kwargs):
             
     monateVertragsdauer = monateVertragsdauer + r.months
     print monateVertragsdauer, " Monate Vertrag"
-    print monateVertragsdauer * vertragsstunden_benutzer, " stunden zu arbeiten"
     alles = monateVertragsdauer * vertragsstunden_benutzer
-
+    # wenn tage existieren --> wird halber monat berechnet, wenn nicht ganzer monat
+    if r.days:
+        alles = alles + (vertragsstunden_benutzer/2)
+    print alles, " stunden zu arbeiten"
     gearbeiteteStunden = 0
     for x in range(1, 13):
 
@@ -118,6 +121,19 @@ def status(request, *args, **kwargs):
                 versuch[x] = datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
+    # student erstellen
+    try:
+        student = Studenten.objects.get(User=request.user)
+    except Studenten.DoesNotExist:
+        student = Studenten(User=request.user, vertragsstart=request.user.Vertragsstart, 
+        vertragsende= request.user.Vertragsende, vertragstunden=request.user.Vertragstunden)
+        student.save()
+        print student
+        
+    student.sollstunden = alles
+    student.iststunden = gearbeiteteStunden
+    student.save()
+
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,

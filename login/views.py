@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import ZeitForm
 from datetime import datetime
 from registration.backends.hmac.views import RegistrationView
-from stundenkonto.models import StatusUebersicht
+from stundenkonto.models import StatusUebersicht, Studenten
 
 # Create your views here.
 
@@ -14,6 +14,8 @@ class EigeneRegistration(RegistrationView):
     def get_success_url(self, user):
         o = StatusUebersicht(User=user, Monat=datetime.now().month)
         o.save()
+        student = Studenten(User=user, vertragsstart=user.Vertragsstart, vertragsende= user.Vertragsende, vertragstunden=user.Vertragstunden)
+        student.save()
         return 'registration_complete'
 
 
