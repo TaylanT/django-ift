@@ -54,14 +54,16 @@ class StatusUebersicht(models.Model):
                 defaults={'Monatsstunden': zeit_stunden}
             )
         # wenn nicht vorhanden initialisieren
-        if not zeit['test']:
+        # if not zeit['test']:
+        #     zeit_stunden = 0
+        #     # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
+        #     obj, created = StatusUebersicht.objects.get_or_create(
+        #         User=request.user,
+        #         Monat=aktueller_monat,
+        #         defaults={'Monatsstunden': zeit_stunden}
+        #     )
+        else:
             zeit_stunden = 0
-            # t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
-            obj, created = StatusUebersicht.objects.get_or_create(
-                User=request.user,
-                Monat=aktueller_monat,
-                defaults={'Monatsstunden': zeit_stunden}
-            )
         return zeit_stunden
 
     def ueberhang(self, request, monat):
