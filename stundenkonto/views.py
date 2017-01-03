@@ -12,9 +12,10 @@ from django.core.exceptions import ObjectDoesNotExist
 
 #locale.setlocale(locale.LC_ALL, 'de_DE')
 
-#locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
 
-locale.setlocale(locale.LC_ALL, 'deu_deu')
+locale.setlocale(locale.LC_ALL, 'de_DE.utf8')
+
+#locale.setlocale(locale.LC_ALL, 'deu_deu')
 
 #locale.setlocale(locale.LC_ALL, 'de_DE@euro')
 
