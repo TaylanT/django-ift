@@ -2,31 +2,36 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class='col-md-6'>
-<form action="" method="post">{% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Update" />
+<div class='col-md-6 col-md-offset-3'>
+ <h3>Zeiterfassung updaten</h3>
+
+ <form method='POST' action=''>{% csrf_token %}
+  {{ form|crispy }}
+  <input class='btn btn-primary' type='submit' value='Update' />
 </form>
 </div>
 
 <script type="text/javascript">
-    $(function () {
-        $('#id_start').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY HH:mm',
-                                              
-                                              
+  $(function () {
+    $('#id_start').datetimepicker({
+      locale:moment.locale('de'),
+      sideBySide:true,
+      format: 'DD.MM.YYYY HH:mm',
+      widgetPositioning: {
+        horizontal: 'auto',
+        vertical: 'bottom'
+      },
     });
-        $('#id_ende').datetimepicker({locale:moment.locale('de'),
-                                              sideBySide:true,
-                                              format: 'DD.MM.YYYY HH:mm',
-                                              useCurrent:true,
-                                              
-                                              
-
+    $('#id_ende').datetimepicker({
+      locale:moment.locale('de'),
+      sideBySide:true,
+      format: 'DD.MM.YYYY HH:mm',
+      widgetPositioning: {
+        horizontal: 'auto',
+        vertical: 'bottom'
+      },
     });
-    });
-
+  });
 </script>
 
 {% endblock %}

@@ -7,8 +7,12 @@ from stundenkonto.models import StatusUebersicht, Studenten
 import datetime
 import locale
 import calendar
+
 from dateutil import relativedelta
 from django.core.exceptions import ObjectDoesNotExist
+
+import operator
+
 
 #locale.setlocale(locale.LC_ALL, 'de_DE')
 
@@ -56,7 +60,8 @@ class UebersichView(ListView):
                 versuch[x] = datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
-        context['monatslist'] = versuch
+        sorted_versuch = sorted(versuch.items(), key=operator.itemgetter(0))
+        context['monatslist'] = sorted_versuch
         
         return context
 
@@ -122,26 +127,17 @@ def status(request, *args, **kwargs):
                 versuch[x] = datetime.date(1900, x, 1).strftime('%B')
             else:
                 pass
-    # student erstellen
-    try:
-        student = Studenten.objects.get(User=request.user)
-    except Studenten.DoesNotExist:
-        student = Studenten(User=request.user, vertragsstart=request.user.Vertragsstart, 
-        vertragsende= request.user.Vertragsende, vertragstunden=request.user.Vertragstunden)
-        student.save()
-        print student
-        
-    student.sollstunden = alles
-    student.iststunden = gearbeiteteStunden
-    student.save()
+
+    sorted_versuch = sorted(versuch.items(), key=operator.itemgetter(0))
 
     return render(request, 'status.html', {'summe': summe, 
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
-                                           'gesamtstatus': alles,
-                                           'gearbeiteteStunden': gearbeiteteStunden,
-                                           'monatslist': versuch
+
+                                           'gesamtstatus' : alles,
+                                           'monatslist': sorted_versuch
+
                                            })
 
 
