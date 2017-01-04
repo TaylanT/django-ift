@@ -37,6 +37,9 @@ class UebersichView(ListView):
         else:
             heute = datetime.date.today()
             monat = heute.month
+        
+
+
         return ZeitErfassung.objects.filter(user__username=self.request.user,
                                             start__month=monat).order_by('start')
 
@@ -70,13 +73,9 @@ class UebersichView(ListView):
 def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
     
-    if (kwargs != {}):
-
-        for key in kwargs:
-            monat = kwargs[key]
-            
-    else:
-        monat = datetime.date.today().month
+    for key in kwargs:
+        monat = kwargs[key]
+    monat = int(monat)
 
     test = StatusUebersicht()
     summe = test.berechnen(request, monat)
@@ -136,7 +135,8 @@ def status(request, *args, **kwargs):
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
                                            'gearbeiteteStunden': gearbeiteteStunden,
                                            'gesamtstatus' : alles,
-                                           'monatslist': sorted_versuch
+                                           'monatslist': sorted_versuch,
+                                           'monat': monat
 
                                            })
 

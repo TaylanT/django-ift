@@ -31,7 +31,7 @@ class UebersichViewTest(TestCase):
         self.client.login(username='john',
                           password='johnpassword')
         response = self.client.get(reverse('status', kwargs={'monat': 7}))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
     def test_initstunden(self):
         pass
 

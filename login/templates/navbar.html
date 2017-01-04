@@ -31,8 +31,9 @@
       {% endif %}
       <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}
-        <li><a href="{% url 'status' %}" style="color: #337ab7">Status</a></li>
-        <li><a href="{% url 'stundenkonto' %}" style="color: #337ab7">Stundenkonto</a></li>
+        {% now "n" as current_month %}
+        <li><a href="{% url 'status' current_month %}" style="color: #337ab7">Status</a></li>
+        <li><a href="{% url 'stundenkonto' current_month %}" style="color: #337ab7">Stundenkonto</a></li>
         <li><a href="{% url 'auth_logout' %}" style="color: #337ab7">Logout</a></li>
         {% else %}
         <li><a href="{% url 'registration_register' %}" style="color: #337ab7">Registrierung</a></li>
