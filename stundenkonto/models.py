@@ -1,5 +1,5 @@
 #!/usr/bin/python
-          # -*- coding: latin-1 -*-
+# -*- encoding: utf-8 -*-
 from __future__ import unicode_literals
 import datetime
 from django.db import models
@@ -21,6 +21,8 @@ from login.models import MyUser
 
 class StatusUebersicht(models.Model):
     """Ueberblick uber aktuellen stundenstatus nach MTC."""
+    class Meta:
+            verbose_name_plural = 'StatusÜbersicht'
     Monatsstunden = models.FloatField(default=0)
     User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,
     )
@@ -92,6 +94,9 @@ class StatusUebersicht(models.Model):
 """ 
 class Studenten(models.Model):
     """Ueberblick uber aktuellen stundenstatus nach MTC."""
+
+    class Meta:
+            verbose_name_plural = 'Studenten'
     User = models.ForeignKey('login.MyUser', on_delete=models.CASCADE,)
 
     vertragsstart = models.DateField(null=True)

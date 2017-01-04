@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class Betreuer(models.Model):
+    class Meta:
+            verbose_name_plural = 'Betreuer'
 
     vorname = models.CharField(max_length=120, null=True)
     nachname = models.CharField(max_length=120, null=True)
@@ -25,6 +27,8 @@ class MyUser(AbstractUser):
 
 
 class ZeitErfassung(models.Model):
+    class Meta:
+            verbose_name_plural = 'Zeiterfassung'
 
     """In dieser Tabelle werden alle Zeiten erfasst."""
 
