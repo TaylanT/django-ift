@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test import Client
+from login.models import MyUser
 from login.models import Betreuer
 from login.views import home
 from stundenkonto.test_view import UebersichViewTest
@@ -8,10 +9,13 @@ from stundenkonto.test_view import UebersichViewTest
 
 class home(TestCase):
     def setUp(self):
+        self.user = MyUser.objects.create_user('john', 'lennon@thebeatles.com',
+                                               'johnpassword',
+                                               Vertragstunden=30,
+                                               Initstunden=100)
         self.betreuer = Betreuer.objects.create(vorname='Taylan',
                                                 nachname='Tokan')
-        s = UebersichViewTest
-        s.setUp
+        
     
    
 

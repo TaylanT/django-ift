@@ -6,6 +6,7 @@ from django.db import models
 from login.models import ZeitErfassung
 from django.db.models import F, FloatField, Sum
 from login.models import MyUser
+from django.shortcuts import get_object_or_404
 
 # Create your models here.
     
@@ -42,7 +43,7 @@ class StatusUebersicht(models.Model):
         """Summiert stundenanzahl."""
         heute = datetime.date.today()
         aktueller_monat = monat
-        #print monat
+        # print monat
         # aktueller_monat= 6
         zeit = ZeitErfassung.objects.filter(user__username=request.user,
                                  start__month=aktueller_monat).aggregate(test=Sum(F('dt')))
@@ -79,7 +80,7 @@ class StatusUebersicht(models.Model):
 
         zeit_stunden = self.berechnen(request, monat)
 
-        t = StatusUebersicht.objects.get(User_id=request.user.id, Monat=aktueller_monat)
+        t = get_object_or_404(StatusUebersicht,User_id=request.user.id, Monat=aktueller_monat)
         t.Ueberhang = Vertragsstunden_benutzer-zeit_stunden 
         t.Monatsstunden = zeit_stunden
         t.User = request.user
