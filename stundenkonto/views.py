@@ -134,7 +134,7 @@ def status(request, *args, **kwargs):
                                            'ueberhang': ueberhang,
                                            'monat': monat_name,
                                            'Vertragsstunden': MyUser.objects.get(username=request.user).Vertragstunden,
-
+                                           'gearbeiteteStunden': gearbeiteteStunden,
                                            'gesamtstatus' : alles,
                                            'monatslist': sorted_versuch
 
