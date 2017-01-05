@@ -37,7 +37,7 @@ class UebersichView(ListView):
         else:
             heute = datetime.date.today()
             monat = heute.month
-        
+
 
 
         return ZeitErfassung.objects.filter(user__username=self.request.user,
@@ -72,9 +72,9 @@ class UebersichView(ListView):
 # Funktions-based view
 def status(request, *args, **kwargs):
     """Berechnung der Gesamtstunden Und Ueberhang nach Prinzip Fat Models."""
-    
-    for key in kwargs:
-        monat = kwargs[key]
+    jahr = kwargs['jahr']
+    monat = kwargs['monat']
+    print jahr, monat
     monat = int(monat)
 
     test = StatusUebersicht()

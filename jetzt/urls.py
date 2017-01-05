@@ -44,8 +44,8 @@ urlpatterns = [
         name='registration_register'),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^$', home, name="home"),
-    url(r'^stundenkonto/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
-    url(r'^status/(?P<monat>[0-9]+)/$', status, name="status"),
+    url(r'^stundenkonto/(?P<jahr>[0-9]{4})/(?P<monat>[0-9]+)/$', UebersichView.as_view(), name="stundenkonto"),
+    url(r'^status/(?P<jahr>[0-9]{4})/(?P<monat>[0-9]+)/$', status, name="status"),
     url(r'^thanks/$', thanks, name="thanks"), 
     # url(r'^profile/$', login.views.profilesi,name="profile"),
 
