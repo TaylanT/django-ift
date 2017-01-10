@@ -19,4 +19,11 @@ class MyCustomUserForm(RegistrationForm):
         fields = ['first_name', 'last_name', 'username', 'Vertragstunden',
                   'Vertragsstart', 'Vertragsende', 'email']
         REQUIRED_FIELDS = ['first_name']
+
+
+class EmailForm(forms.ModelForm):
+    """Zeiterfassungsformular."""
+    class Meta:
+        model = MyUser
+        fields = ['email']
         

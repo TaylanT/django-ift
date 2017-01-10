@@ -4,38 +4,38 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class='col-md-6 col-md-offset-3'>
- <h3> Hallo {{ request.user.username }}, du bist eingeloggt!</h3>
+  <div class='col-md-6 col-md-offset-3'>
+   <h3> Hallo {{ request.user.username }}, du bist eingeloggt!</h3>
 
- <form method='POST' action=''>{% csrf_token %}
-  {{ form|crispy }}
-  <input class='btn btn-primary' type='submit' value='Speichern' />
-</form>
-</div>
+   <form method='POST' action=''>{% csrf_token %}
+    {{ form|crispy }}
+    <input class='btn btn-primary' type='submit' value='Speichern' />
+  </form>
+  </div>
 
-<script type="text/javascript">
-  $(function () {
-    $('#id_start').datetimepicker({
-      locale:moment.locale('de'),
-      sideBySide:true,
-      format: 'DD.MM.YYYY HH:mm',
-      widgetPositioning: {
-        horizontal: 'auto',
-        vertical: 'bottom'
-      },
+  <script type="text/javascript">
+    $(function () {
+      $('#id_start').datetimepicker({
+        locale:moment.locale('de'),
+        sideBySide:true,
+        format: 'DD.MM.YYYY HH:mm',
+        widgetPositioning: {
+          horizontal: 'auto',
+          vertical: 'bottom'
+        },
+      });
+      $('#id_ende').datetimepicker({
+        locale:moment.locale('de'),
+        sideBySide:true,
+        format: 'DD.MM.YYYY HH:mm',
+        widgetPositioning: {
+          horizontal: 'auto',
+          vertical: 'bottom'
+        },
+      });
     });
-    $('#id_ende').datetimepicker({
-      locale:moment.locale('de'),
-      sideBySide:true,
-      format: 'DD.MM.YYYY HH:mm',
-      widgetPositioning: {
-        horizontal: 'auto',
-        vertical: 'bottom'
-      },
-    });
-  });
 
-</script>  
+  </script>  
 
 {% else%}
 <div class='col-md-8 col-md-offset-2'>
