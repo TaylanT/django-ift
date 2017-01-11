@@ -25,7 +25,7 @@ class ZeitUpdate(UpdateView):
 
 class EntferneEintrag(DeleteView):
     model = ZeitErfassung
-    success_url = reverse_lazy('stundenkonto')
+    success_url = reverse_lazy('stundenkonto', kwargs={'jahr': 2017, 'monat':1})
 
     def get_queryset(self):
         query_set = ZeitErfassung.objects.filter(user=self.request.user)
