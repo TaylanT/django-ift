@@ -21,6 +21,7 @@ class EigeneRegistration(RegistrationView):
 
 
 def home(request):
+    
     if request.user.is_authenticated:
         if request.user.email:
             print("email vorhanden")
