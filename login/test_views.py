@@ -4,18 +4,22 @@ from django.test import Client
 from login.models import MyUser
 from login.models import Betreuer
 from login.views import home
-from stundenkonto.test_view import UebersichViewTest
+from login.models import MyUser
+
 
 
 class home(TestCase):
     def setUp(self):
-        self.user = MyUser.objects.create_user('john', 'lennon@thebeatles.com',
-                                               'johnpassword',
-                                               Vertragstunden=30,
-                                               Initstunden=100)
+        
         self.betreuer = Betreuer.objects.create(vorname='Taylan',
                                                 nachname='Tokan')
-        
+
+        self.client = Client()
+        self.user = MyUser.objects.create_user(username="john",
+                                               password="johnpassword",
+                                               Vertragstunden=30,
+                                               Initstunden=100)
+
     
    
 
